@@ -5,4 +5,5 @@ A planner app designed by students, for the students
 
 *Personal fork.*
 
-[Work so far.](https://i.imgur.com/VSKQ1ng.jpg)
+Work so far.
+![Screen shot](https://i.imgur.com/VSKQ1ng.jpg)
