@@ -1,6 +1,9 @@
 package io.github.teamseven.myvirtualplanner;
 
 import android.os.Build;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,13 +14,28 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     Toolbar mToolbar;
+    DrawerLayout mDrawerLayout;
+    NavigationView mNavigationView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.navigation_drawer);
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open_drawer, R.string.close_drawer);
+
+        mDrawerLayout.addDrawerListener(toggle);
+
+        toggle.syncState();
+
+        mDrawerLayout.removeDrawerListener(toggle);
 
         // Compatibility mode
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
