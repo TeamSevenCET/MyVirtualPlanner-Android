@@ -1,5 +1,6 @@
 package io.github.teamseven.myvirtualplanner;
 
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,5 +15,10 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
+
+        // Compatibility mode
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mToolbar.setElevation(10.f);
+        }
     }
 }
