@@ -5,4 +5,12 @@
     <string name="about_us">About us</string>
     <string name="name">Your name</string>
     <string name="email">email@gmail.com</string>
+    <string name="subject">Subject</string>
+    <string name="exam">Exam</string>
+    <string name="assignments">Assignments</string>
+    <string name="subjects">Subjects</string>
+    <string name="personal">Personal</string>
+    <string name="misc">Misc.</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
 </resources>

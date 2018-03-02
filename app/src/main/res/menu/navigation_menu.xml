@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:title="@string/subjects">
+        <menu>
+            <item android:title="@string/subject"
+                android:id="@+id/sub_1"
+                />
+            <item android:title="@string/subject"
+                android:id="@+id/sub_2"
+                />
+            <item android:title="@string/subject"
+                android:id="@+id/sub_3"
+                />
+            <item android:title="@string/subject"
+                android:id="@+id/sub_4"
+                />
+            <item android:title="@string/subject"
+                android:id="@+id/sub_5"
+                />
+        </menu>
+    </item>
+    <item android:title="@string/exam"
+        android:id="@+id/exam"/>
+    <item android:title="@string/assignments"
+        android:id="@+id/ass"/>
+    <item android:title="@string/personal"
+        android:id="@+id/personal"/>
+    <item android:title="@string/misc"
+        android:id="@+id/misc"/>
+
 </menu>
