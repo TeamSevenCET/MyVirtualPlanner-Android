@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/topToolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    android:background="@color/colorPrimaryDark"
+    android:theme="@style/toolbarTheme"
+    >
+
+</android.support.v7.widget.Toolbar>
