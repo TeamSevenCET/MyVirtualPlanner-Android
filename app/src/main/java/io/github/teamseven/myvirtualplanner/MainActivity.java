@@ -1,5 +1,7 @@
 package io.github.teamseven.myvirtualplanner;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -9,15 +11,20 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    icon_Manager icon_manager;
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
+    TextView notice;
 
 
     @Override
@@ -45,6 +52,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mToolbar.setElevation(10.f);
         }
+        //notice_board
+        icon_manager=new icon_Manager();
+        notice=((TextView) findViewById(R.id.notice));
+        notice.setTypeface(icon_manager.get_icons(
+                "fonts/ionicons.ttf",this
+        ));
+        char icon=notice.getText().charAt(0);
+        String ic=Character.toString(icon);
+        String s=ic+"<font color=#f94d18><b> Important Notice</b></font>";
+        notice.setText(Html.fromHtml(s));
+        // Todo : Add functionality to display required string in notice box
+
     }
 
     @Override
