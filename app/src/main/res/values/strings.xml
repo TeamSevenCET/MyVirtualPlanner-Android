@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">MyVirtual Planner</string>
+    <string name="app_name">My Virtual Planner</string>
+    <string name="settings">Settings</string>
+    <string name="log_in">Log in / Sign up</string>
+    <string name="about_us">About us</string>
+    <string name="name">Your name</string>
+    <string name="email">email@gmail.com</string>
+    <string name="subject">Subject</string>
+    <string name="exam">Exam</string>
+    <string name="assignments">Assignments</string>
+    <string name="subjects">Subjects</string>
+    <string name="personal">Personal</string>
+    <string name="misc">Misc.</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
+    <string name="add_sub">Add a subject...</string>
+    <string name="icon_notice">&#xf35b;</string>
 </resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dropDown_settings"
+        android:title="@string/settings" />
+    <item
+        android:id="@+id/dropDown_login"
+        android:title="@string/log_in" />
+    <item
+        android:id="@+id/dropDown_aboutUs"
+        android:title="@string/about_us" />
+
+
+<!--Are these all the drop down we need? I don't know. This is what happens when you ask for an SRS document and all you get is some useless edgy remarks.-->
+
+    <!--TODO : Add all the missing items here and then implement them in Java.-->
+
+</menu>
