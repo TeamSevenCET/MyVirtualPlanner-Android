@@ -8,4 +8,19 @@
 
     <include layout="@layout/top_toolbar"/>
 
+    <TextView
+        android:id="@+id/notice"
+        android:layout_width="321dp"
+        android:layout_height="104dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="96dp"
+        android:background="#0c2338"
+        android:padding="10sp"
+        android:text="@string/icon_notice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
+
