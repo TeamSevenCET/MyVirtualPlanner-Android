@@ -10,33 +10,33 @@
 
     <TextView
         android:id="@+id/notice"
-        android:layout_width="321dp"
-        android:layout_height="104dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/shadow"
         android:elevation="20sp"
         android:padding="10sp"
         android:text="@string/icon_notice"
+        app:layout_constraintBottom_toTopOf="@+id/hguide_bottom_notice"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/hguide_top_notice" />
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="324dp"
-        android:layout_height="270dp"
-        android:layout_marginBottom="80dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notice">
+        app:layout_constraintTop_toTopOf="@+id/hguide_bottom_notice">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,6 +46,7 @@
             >
 
             <TextView
+                android:textColor="#F92672"
                 android:id="@+id/mainscreen_tv4"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -56,6 +57,7 @@
                 android:text="@string/mainscreen_task4" />
 
             <TextView
+                android:textColor="#F92672"
                 android:id="@+id/mainscreen_tv3"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -66,6 +68,7 @@
                 android:text="@string/mainscreen_task3" />
 
             <TextView
+                android:textColor="#F92672"
                 android:id="@+id/mainscreen_tv2"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -76,6 +79,7 @@
                 android:text="@string/mainscreen_task2" />
 
             <TextView
+                android:textColor="#F92672"
                 android:id="@+id/mainscreen_tv1"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -86,6 +90,21 @@
                 android:text="@string/mainscreen_task1" />
         </LinearLayout>
     </ScrollView>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hguide_top_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hguide_bottom_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
 
 </android.support.constraint.ConstraintLayout>
 
