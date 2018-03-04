@@ -15,4 +15,8 @@
     <string name="close_drawer">Close Drawer</string>
     <string name="add_sub">Add a subject...</string>
     <string name="icon_notice">&#xf35b;</string>
+    <string name="mainscreen_task1">Assignment in two days</string>
+    <string name="mainscreen_task2">Internal Exams Preparation</string>
+    <string name="mainscreen_task3">Code Busters</string>
+    <string name="mainscreen_task4">Project Presentation</string>
 </resources>
