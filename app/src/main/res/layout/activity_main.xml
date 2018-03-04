@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context="io.github.teamseven.myvirtualplanner.MainActivity">
 
-    <include layout="@layout/top_toolbar"/>
+    <include
+        layout="@layout/top_toolbar" />
 
     <TextView
         android:id="@+id/notice"
@@ -20,6 +21,7 @@
         android:elevation="20sp"
         android:padding="10sp"
         android:text="@string/icon_notice"
+        android:textColor="#FD971F"
         app:layout_constraintBottom_toTopOf="@+id/hguide_bottom_notice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,6 +106,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.4" />
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/addBtn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/add_48"
+        app:cb_color="@color/colorPrimaryDark"
+        app:cb_pressedRingWidth="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/hguide_bottom_notice"
+        app:layout_constraintVertical_bias="0.94" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -6,7 +6,7 @@ import android.graphics.Typeface;
 import java.util.Hashtable;
 
 /**
- * Created by RUDRA on 3/3/2018.
+ * Created by phantom-5 on 3/3/2018.
  */
 
 public class icon_Manager {

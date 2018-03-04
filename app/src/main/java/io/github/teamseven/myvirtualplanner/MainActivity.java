@@ -1,5 +1,12 @@
 package io.github.teamseven.myvirtualplanner;
 
+/**
+ * Created by Matt110110
+ */
+
+import android.support.design.widget.NavigationView;
+import android.support.v7.app.AppCompatActivity;
+
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -14,10 +21,14 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import at.markushi.ui.CircleButton;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     icon_Manager icon_manager;
@@ -25,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
     TextView notice;
+    CircleButton mAddBtn;
 
 
     @Override
@@ -34,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
-
+        mAddBtn = (CircleButton) findViewById(R.id.addBtn);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
 
@@ -60,8 +72,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ));
         char icon=notice.getText().charAt(0);
         String ic=Character.toString(icon);
-        String s=ic+"<font color=#f94d18><b> Important Notice</b></font>";
+        String s=ic+"<font color=##FD971F><b> Important Notice</b></font>";
         notice.setText(Html.fromHtml(s));
+
+        mAddBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("circle", "onClick: Add btn clicked");
+//                TODO: Add functionality for the add button. It will require some JSON parsing wizadry and shit.
+            }
+        });
+
         // Todo : Add functionality to display required string in notice box
 
     }
