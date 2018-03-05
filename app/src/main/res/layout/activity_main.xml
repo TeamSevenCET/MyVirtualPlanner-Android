@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context="io.github.teamseven.myvirtualplanner.MainActivity">
 
-    <include
-        layout="@layout/top_toolbar" />
+    <include layout="@layout/top_toolbar" />
 
     <TextView
         android:id="@+id/notice"
@@ -48,7 +47,6 @@
             >
 
             <TextView
-                android:textColor="#F92672"
                 android:id="@+id/mainscreen_tv4"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -56,10 +54,10 @@
                 android:background="@drawable/mainscreen_shadow1"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="@string/mainscreen_task4" />
+                android:text="@string/mainscreen_task4"
+                android:textColor="#F92672" />
 
             <TextView
-                android:textColor="#F92672"
                 android:id="@+id/mainscreen_tv3"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -67,10 +65,10 @@
                 android:background="@drawable/mainscreen_shadow1"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="@string/mainscreen_task3" />
+                android:text="@string/mainscreen_task3"
+                android:textColor="#F92672" />
 
             <TextView
-                android:textColor="#F92672"
                 android:id="@+id/mainscreen_tv2"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -78,10 +76,10 @@
                 android:background="@drawable/mainscreen_shadow1"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="@string/mainscreen_task2" />
+                android:text="@string/mainscreen_task2"
+                android:textColor="#F92672" />
 
             <TextView
-                android:textColor="#F92672"
                 android:id="@+id/mainscreen_tv1"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -89,7 +87,8 @@
                 android:background="@drawable/mainscreen_shadow1"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="@string/mainscreen_task1" />
+                android:text="@string/mainscreen_task1"
+                android:textColor="#F92672" />
         </LinearLayout>
     </ScrollView>
 
@@ -109,19 +108,43 @@
 
     <at.markushi.ui.CircleButton
         android:id="@+id/addBtn"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:src="@drawable/add_48"
         app:cb_color="@color/colorPrimaryDark"
         app:cb_pressedRingWidth="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/hguide_bottom_notice"
-        app:layout_constraintVertical_bias="0.94" />
+        app:layout_constraintBottom_toTopOf="@+id/btnBottom"
+        app:layout_constraintEnd_toStartOf="@+id/btnRight"
+        app:layout_constraintStart_toStartOf="@+id/btnLeft"
+        app:layout_constraintTop_toTopOf="@+id/btnTop" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/btnTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.83" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/btnBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/btnRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96107054" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/btnLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.77" />
 
 
 </android.support.constraint.ConstraintLayout>
