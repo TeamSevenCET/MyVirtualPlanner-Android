@@ -19,4 +19,5 @@
     <string name="mainscreen_task2">Internal Exams Preparation</string>
     <string name="mainscreen_task3">Code Busters</string>
     <string name="mainscreen_task4">Project Presentation</string>
+    <string name="title_activity_detail">detailActivity</string>
 </resources>
