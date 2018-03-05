@@ -4,6 +4,7 @@ package io.github.teamseven.myvirtualplanner;
  * Created by Matt110110
  */
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 
@@ -24,6 +25,7 @@ import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,12 +33,16 @@ import android.widget.Toast;
 import at.markushi.ui.CircleButton;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    icon_Manager icon_manager;
-    Toolbar mToolbar;
-    DrawerLayout mDrawerLayout;
-    NavigationView mNavigationView;
-    TextView notice;
-    CircleButton mAddBtn;
+
+    // Always remember to follow a naming scheme. The global variables should have a prefix, most commonly used one is m
+
+    private icon_Manager mIconManager; // Icon manager object, for adding glyphs
+    private Toolbar mToolbar; // Toolbar object for the top toolbar
+    private DrawerLayout mDrawerLayout; // Layout object for the navigation menu
+    private NavigationView mNavigationView; // The navigation view
+    private TextView notice; // The notice text view to show what important notifs we have
+    private CircleButton mAddBtn; // Button to add new reminders.
+
 
 
     @Override
@@ -49,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mAddBtn = (CircleButton) findViewById(R.id.addBtn);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-
         mNavigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open_drawer, R.string.close_drawer);
@@ -65,9 +70,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mToolbar.setElevation(10.f);
         }
         //notice_board
-        icon_manager=new icon_Manager();
+        mIconManager=new icon_Manager();
         notice=((TextView) findViewById(R.id.notice));
-        notice.setTypeface(icon_manager.get_icons(
+        notice.setTypeface(mIconManager.get_icons(
                 "fonts/ionicons.ttf",this
         ));
         char icon=notice.getText().charAt(0);
@@ -85,6 +90,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Todo : Add functionality to display required string in notice box
 
+    }
+
+    private void displayMenu() {
+        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        Menu menu = mNavigationView.getMenu();
+        menu.add("Subject 1");
+        mDrawerLayout.closeDrawers();
     }
 
     @Override
@@ -121,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.add_sub:
 //                TODO : Add a subject
                 Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
+                displayMenu();
                 break;
             case R.id.exam:
 //                TODO : Add logic for exam
@@ -138,26 +153,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                TODO : New activity for all things misc using Intent
                 Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.sub_1:
-//                TODO : open subject page
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.sub_2:
-//                TODO : open subject page
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.sub_3:
-//                TODO : open subject page
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.sub_4:
-//                TODO : open subject page
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.sub_5:
-//                TODO : open subject page
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.sub_1:
+////                TODO : open subject page
+//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
+//                break;
+//            case R.id.sub_2:
+////                TODO : open subject page
+//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
+//                break;
+//            case R.id.sub_3:
+////                TODO : open subject page
+//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
+//                break;
+//            case R.id.sub_4:
+////                TODO : open subject page
+//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
+//                break;
+//            case R.id.sub_5:
+////                TODO : open subject page
+//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
+//                break;
 
 
 //                Todo : Add all the other things that are needed in the navigation bar and then implement them here
