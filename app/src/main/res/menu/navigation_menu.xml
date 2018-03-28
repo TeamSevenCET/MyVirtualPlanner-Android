@@ -2,8 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--TODO : This is not complete by any means. A lot more work needs to be done. Implement all the changes.-->
-
+<!--
     <item android:title="@string/subjects"
+        android:id="@+id/a"
         >
         <menu>
             <item android:title="@string/subject"
@@ -26,11 +27,9 @@
                 android:id="@+id/sub_5"
                 android:icon="@drawable/sub"
                 />
-            <item android:title="@string/add_sub"
-                android:id="@+id/add_sub"
-                android:icon="@drawable/ic_add_black_24dp"/>
+
         </menu>
-    </item>
+    </item>-->
     <item android:title="@string/exam"
         android:icon="@drawable/exam"
         android:id="@+id/exam"/>
@@ -43,5 +42,8 @@
     <item android:title="@string/misc"
         android:icon="@drawable/ic_weekend_black_24dp"
         android:id="@+id/misc"/>
+    <item android:title="@string/add_sub"
+        android:id="@+id/add_sub"
+        android:icon="@drawable/ic_add_black_24dp"/>
 
 </menu>

@@ -1,106 +1,42 @@
-package io.github.teamseven.myvirtualplanner;
-
 /**
- * Created by Matt110110
+ * Created by Matt110110 on 05/03/2018
  */
 
-import android.content.Intent;
-import android.support.design.widget.NavigationView;
-import android.support.v7.app.AppCompatActivity;
+package io.github.teamseven.myvirtualplanner;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.text.SpannableStringBuilder;
-import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import at.markushi.ui.CircleButton;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    // Always remember to follow a naming scheme. The global variables should have a prefix, most commonly used one is m
+public class exams extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private icon_Manager mIconManager; // Icon manager object, for adding glyphs
     private Toolbar mToolbar; // Toolbar object for the top toolbar
     private DrawerLayout mDrawerLayout; // Layout object for the navigation menu
     private NavigationView mNavigationView; // The navigation view
-    private TextView notice; // The notice text view to show what important notifs we have
-    private CircleButton mAddBtn; // Button to add new reminders.
-
-
+    private TextView mTextView; // The notice text view to show what important notifs we have
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.navigation_drawer);
+        setContentView(R.layout.navigation_drawer_exams);
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
-        mAddBtn = (CircleButton) findViewById(R.id.addBtn);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mNavigationView.setNavigationItemSelectedListener(this);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open_drawer, R.string.close_drawer);
-
-        mDrawerLayout.addDrawerListener(toggle);
-
-        toggle.syncState();
-
-        mDrawerLayout.removeDrawerListener(toggle);
-
-        // Compatibility mode
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mToolbar.setElevation(10.f);
-        }
-        //notice_board
-        mIconManager=new icon_Manager();
-        notice=((TextView) findViewById(R.id.notice));
-        notice.setTypeface(mIconManager.get_icons(
-                "fonts/ionicons.ttf",this
-        ));
-        char icon=notice.getText().charAt(0);
-        String ic=Character.toString(icon);
-        String s=ic+"<font color=##FD971F><b> Important Notice</b></font>";
-        notice.setText(Html.fromHtml(s));
-
-        mAddBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("circle", "onClick: Add btn clicked");
-//                TODO: Add functionality for the add button. It will require some JSON parsing wizadry and shit.
-            }
-        });
-
-        // Todo : Add functionality to display required string in notice box
-
     }
-
-    private void addSub() {
-        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-        mNavigationView.setNavigationItemSelectedListener(this);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Menu menu = mNavigationView.getMenu();
-        menu.add("Subject 1");
-        mDrawerLayout.closeDrawers();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -127,6 +63,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    private void addSub() {
+        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        Menu menu = mNavigationView.getMenu();
+        menu.add("Subject 1");
+        mDrawerLayout.closeDrawers();
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -138,8 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 addSub();
                 break;
             case R.id.exam:
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, exams.class));
+                Toast.makeText(this, "Already in exams", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ass:
 //                TODO : Logic for assignment
