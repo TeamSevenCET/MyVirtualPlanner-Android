@@ -1,9 +1,12 @@
 package io.github.teamseven.myvirtualplanner;
 
 /**
- * Created by Matt110110
+ * Created by teamseven
  */
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -27,26 +30,39 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Calendar;
 
 import at.markushi.ui.CircleButton;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,DatePickerDialog.OnDateSetListener,
+        TimePickerDialog.OnTimeSetListener{
 
     // Always remember to follow a naming scheme. The global variables should have a prefix, most commonly used one is m
-
+    private DatabaseReference mDataBase; //Firebase Reference
     private icon_Manager mIconManager; // Icon manager object, for adding glyphs
     private Toolbar mToolbar; // Toolbar object for the top toolbar
     private DrawerLayout mDrawerLayout; // Layout object for the navigation menu
     private NavigationView mNavigationView; // The navigation view
     private TextView notice; // The notice text view to show what important notifs we have
     private CircleButton mAddBtn; // Button to add new reminders.
+    private String[] reminders_array,reminders_date,reminders_time;
+    private int mIndex;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mDataBase = FirebaseDatabase.getInstance().getReference();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer);
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
@@ -84,11 +100,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 Log.d("circle", "onClick: Add btn clicked");
-//                TODO: Add functionality for the add button. It will require some JSON parsing wizadry and shit.
+                AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                String text_rem=lReminder.getText().toString();
+                final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                mBuilder.setView(lview);
+                AlertDialog rem_dialog=mBuilder.create();
+                rem_dialog.show();
+                Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                submit_date.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int day=0;
+                        int month=0;
+                        int year=0;
+                        int hour=0;
+                        int min=0;
+                        onDateSet(rem_date,day,month,year);
+                        onTimeSet(rem_time,hour,min);
+                        Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                        startActivity(i5);
+                    }
+
+                });
+                //TODO-Rudra: get text,date,time and store it either firebase or any other form we can retrieve from
+
             }
         });
+        //TODO-Rudra: write and call method to sort strings and its corresponding dates as per importance
+        // TODO-Rudra : Add functionality to display required most important/urgent string in notice box and set calender reminder
+        // TODO-Rudra : Also after the deadline, the next important task should take its place
 
-        // Todo : Add functionality to display required string in notice box
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        i=datePicker.getDayOfMonth();
+        i1=datePicker.getMonth()+1;
+        i2=datePicker.getYear();
+        String date=Integer.toString(i)+"/"+Integer.toString(i1)+"/"+Integer.toString(i2);
+        Toast.makeText(MainActivity.this,date,Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onTimeSet(TimePicker timePicker, int i, int i1) {
+        Calendar calendar=Calendar.getInstance();
+        i=timePicker.getCurrentHour();
+        i1=timePicker.getCurrentMinute();
+        String time=Integer.toString(i)+":"+Integer.toString(i1);
+        Toast.makeText(MainActivity.this,time,Toast.LENGTH_LONG).show();
 
     }
 

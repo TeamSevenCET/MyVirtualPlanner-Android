@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "892133114836",
+    "firebase_url": "https://myvirtualplanner-android.firebaseio.com",
+    "project_id": "myvirtualplanner-android",
+    "storage_bucket": "myvirtualplanner-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892133114836:android:1e03639891eafba3",
+        "android_client_info": {
+          "package_name": "io.github.teamseven.myvirtualplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "892133114836-9r87bst8v17eoa8ug0v4srtb9s2c9sn3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.teamseven.myvirtualplanner",
+            "certificate_hash": "415f4773688d83e6fb920d0f2e3e40f19797d3c8"
+          }
+        },
+        {
+          "client_id": "892133114836-45quqj4fvf57l8kr2rcg12aj0oq7s4du.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJpdlBVZ3jrd77CT04KQnMqwx6Ey9n1IA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892133114836-45quqj4fvf57l8kr2rcg12aj0oq7s4du.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
