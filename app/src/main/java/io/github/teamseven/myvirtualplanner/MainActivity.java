@@ -161,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         Menu menu = mNavigationView.getMenu();
         menu.add("Subject 1");
-        mDrawerLayout.closeDrawers();
     }
 
     @Override
@@ -194,11 +193,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        boolean check=true;
         switch (id) {
             case R.id.add_sub:
 //                TODO : Add a subject
                 Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
                 addSub();
+                check=false;
                 break;
             case R.id.exam:
                 Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
@@ -241,6 +242,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                Todo : Add all the other things that are needed in the navigation bar and then implement them here
 
         }
+        if(check!=false)
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
