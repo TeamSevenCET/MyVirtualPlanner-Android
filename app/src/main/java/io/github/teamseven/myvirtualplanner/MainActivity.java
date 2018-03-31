@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TimePickerDialog.OnTimeSetListener{
 
     // Always remember to follow a naming scheme. The global variables should have a prefix, most commonly used one is m
-    private DatabaseReference mDataBase; //Firebase Reference
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference mDataBase = firebaseDatabase.getReference(); //Firebase Reference
     private icon_Manager mIconManager; // Icon manager object, for adding glyphs
     private Toolbar mToolbar; // Toolbar object for the top toolbar
     private DrawerLayout mDrawerLayout; // Layout object for the navigation menu
@@ -56,13 +57,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView notice; // The notice text view to show what important notifs we have
     private CircleButton mAddBtn; // Button to add new reminders.
     private String[] reminders_array,reminders_date,reminders_time;
-    private int mIndex;
+    private int mIndex=-1;
+    private String date,time;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mDataBase = FirebaseDatabase.getInstance().getReference();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer);
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.d("circle", "onClick: Add btn clicked");
                 AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
                 View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
-                EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
                 String text_rem=lReminder.getText().toString();
                 final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
                 final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
@@ -120,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         int min=0;
                         onDateSet(rem_date,day,month,year);
                         onTimeSet(rem_time,hour,min);
+                        String rem_text=lReminder.getText().toString().trim();
+                        mIndex++;
+                        mDataBase.child("hello").setValue("25");
                         Intent i5=new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(i5);
                     }
@@ -138,11 +142,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         i=datePicker.getDayOfMonth();
+        String i_s1=theDate(i);
         i1=datePicker.getMonth()+1;
+        String i_s2=theDate(i1);
         i2=datePicker.getYear();
-        String date=Integer.toString(i)+"/"+Integer.toString(i1)+"/"+Integer.toString(i2);
+        String i_s3=theDate(i2);
+        date=i_s1+"-"+i_s2+"-"+i_s3;
         Toast.makeText(MainActivity.this,date,Toast.LENGTH_SHORT).show();
 
+    }
+    public String theDate(int i){
+        String i_s=Integer.toString(i);
+        if(i_s.length()==1){
+            i_s="0"+i_s;
+        }
+        return i_s;
     }
 
     @Override
@@ -150,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Calendar calendar=Calendar.getInstance();
         i=timePicker.getCurrentHour();
         i1=timePicker.getCurrentMinute();
-        String time=Integer.toString(i)+":"+Integer.toString(i1);
+        time=Integer.toString(i)+":"+Integer.toString(i1);
         Toast.makeText(MainActivity.this,time,Toast.LENGTH_LONG).show();
 
     }
