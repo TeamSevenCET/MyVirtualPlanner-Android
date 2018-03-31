@@ -37,8 +37,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
@@ -57,13 +60,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView notice; // The notice text view to show what important notifs we have
     private CircleButton mAddBtn; // Button to add new reminders.
     private String[] reminders_array,reminders_date,reminders_time;
-    private int mIndex=-1;
-    private String date,time;
-
+    private int mIndex=-1; //works as counter and flag for database
+    private DatabaseReference mIndex_db = firebaseDatabase.getReference().child("mIndex");  //to update mIndex value
+    private String date,time,notice_string;  //date of rem, time of rem , notice in notice board
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+        //check if data is there in database and update mIndex
+        mIndex_db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String x=dataSnapshot.getValue().toString();
+                if(!x.equals("-1")){
+                    mIndex=Integer.parseInt(x);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //end of updating mIndex
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer);
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
@@ -73,30 +96,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mNavigationView.setNavigationItemSelectedListener(this);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open_drawer, R.string.close_drawer);
-
         mDrawerLayout.addDrawerListener(toggle);
-
         toggle.syncState();
-
         mDrawerLayout.removeDrawerListener(toggle);
+
 
         // Compatibility mode
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mToolbar.setElevation(10.f);
         }
+
+
         //notice_board
         mIconManager=new icon_Manager();
         notice=((TextView) findViewById(R.id.notice));
         notice.setTypeface(mIconManager.get_icons(
                 "fonts/ionicons.ttf",this
         ));
-        char icon=notice.getText().charAt(0);
-        String ic=Character.toString(icon);
-        String s=ic+"<font color=##FD971F><b> Important Notice</b></font>";
-        notice.setText(Html.fromHtml(s));
+        DatabaseReference notice_db=firebaseDatabase.getReference().child("mIndex");
+        final DatabaseReference notice_text=firebaseDatabase.getReference();
+        notice_db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String in_value=dataSnapshot.getValue().toString();
+                if(!in_value.equals("-1")){
+                    notice_text.child("0").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String x=dataSnapshot.getValue().toString();
+                            notice_string=x.substring(11,x.length());
+                            char icon=notice.getText().charAt(0);
+                            String ic=Character.toString(icon);
+                            String s=ic+"<font color=##FD971F><b> Important Notice</b></font><p>"+notice_string+"</p>";
+                            notice.setText(Html.fromHtml(s));
+                        }
 
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //end of notice board
+
+
+        //Add reminder in main screen
         mAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,7 +175,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         onTimeSet(rem_time,hour,min);
                         String rem_text=lReminder.getText().toString().trim();
                         mIndex++;
-                        mDataBase.child("hello").setValue("25");
+                        mDataBase.child(Integer.toString(mIndex)).setValue(date+"_"+rem_text);
+                        mDataBase.child("mIndex").setValue(Integer.toString(mIndex));
+                        //algorithm for priority
                         Intent i5=new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(i5);
                     }
@@ -138,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // TODO-Rudra : Also after the deadline, the next important task should take its place
 
     }
+
 
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
@@ -168,7 +223,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(MainActivity.this,time,Toast.LENGTH_LONG).show();
 
     }
+    //end of dealing with reminder
 
+    //add sub dynamic in drawer
     private void addSub() {
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mNavigationView.setNavigationItemSelectedListener(this);
