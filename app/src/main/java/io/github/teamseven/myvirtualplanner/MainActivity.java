@@ -33,6 +33,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -58,33 +60,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout; // Layout object for the navigation menu
     private NavigationView mNavigationView; // The navigation view
     private TextView notice; // The notice text view to show what important notifs we have
-    private CircleButton mAddBtn; // Button to add new reminders.
-    private String[] reminders_array,reminders_date,reminders_time;
+    private CircleButton mAddBtn; // Button to add new reminders
     private int mIndex=-1; //works as counter and flag for database
     private DatabaseReference mIndex_db = firebaseDatabase.getReference().child("mIndex");  //to update mIndex value
-    private String date,time,notice_string;  //date of rem, time of rem , notice in notice board
+    private String date=null,time=null,rem_text=null,notice_string=null;  //date of rem, time of rem , notice in notice board
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-        //check if data is there in database and update mIndex
-        mIndex_db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String x=dataSnapshot.getValue().toString();
-                if(!x.equals("-1")){
-                    mIndex=Integer.parseInt(x);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        //end of updating mIndex
 
 
         super.onCreate(savedInstanceState);
@@ -121,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String in_value=dataSnapshot.getValue().toString();
                 if(!in_value.equals("-1")){
-                    notice_text.child("0").addValueEventListener(new ValueEventListener() {
+                    notice_text.child(in_value).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String x=dataSnapshot.getValue().toString();
@@ -173,11 +156,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         int min=0;
                         onDateSet(rem_date,day,month,year);
                         onTimeSet(rem_time,hour,min);
-                        String rem_text=lReminder.getText().toString().trim();
-                        mIndex++;
-                        mDataBase.child(Integer.toString(mIndex)).setValue(date+"_"+rem_text);
-                        mDataBase.child("mIndex").setValue(Integer.toString(mIndex));
+                        rem_text=lReminder.getText().toString().trim();
                         //algorithm for priority
+                        prioritise(date+"_"+rem_text);
                         Intent i5=new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(i5);
                     }
@@ -223,7 +204,88 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(MainActivity.this,time,Toast.LENGTH_LONG).show();
 
     }
+    //prioritising algorithm
+    public void prioritise(String d){
+        final String d_in=d;
+        mIndex_db.addListenerForSingleValueEvent((new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String x=dataSnapshot.getValue().toString();
+                if(!x.equals("-1")){
+                    int y=Integer.parseInt(x);
+                    while(y!=-1) {
+                        final int y_in=y+1;
+                        final int y_ex=y;
+                        DatabaseReference yi = firebaseDatabase.getReference().child(Integer.toString(y));
+                        yi.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String z=dataSnapshot.getValue().toString();
+                                String z_date=z.substring(0,10);
+                                //call compare date method to return true if argument is more urgent else false
+                                if(date_comp(d_in.substring(0,10),z_date)){ //when d_in is earlier
+                                    mDataBase.child(Integer.toString(y_in)).setValue(d_in);
+
+                                }else{
+                                    mDataBase.child(Integer.toString(y_in)).setValue(z);
+                                    mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        y--;
+                   }
+
+                }else{
+                    mDataBase.child("0").setValue(date+"_"+rem_text);
+                    finish();
+                }
+                mDataBase.child("mIndex").setValue(Integer.parseInt(x)+1);
+                finish();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        }));
+        finish();
+    }
+    //end of prioritising algorithm
     //end of dealing with reminder
+
+
+    //method to compare dates
+    public boolean date_comp(String date1,String date2){ //false if date1 is later
+        int year1=Integer.parseInt(date1.substring(6,10));
+        int year2=Integer.parseInt(date2.substring(6,10));
+        if(year1>year2){
+            return false;
+        }else if(year1<year2){
+            return true;
+        }else{
+            int month1=Integer.parseInt(date1.substring(3,5));
+            int month2=Integer.parseInt(date2.substring(3,5));
+            if(month1>month2){
+                return false;
+            }else if(month1<month2){
+                return true;
+            }else{
+                int day1=Integer.parseInt(date1.substring(0,2));
+                int day2=Integer.parseInt(date2.substring(0,2));
+                if(day1>day2){
+                    return false;
+                }else
+                    return true;
+            }
+        }
+    }
+
 
     //add sub dynamic in drawer
     private void addSub() {
@@ -313,7 +375,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                Todo : Add all the other things that are needed in the navigation bar and then implement them here
 
         }
-        if(check!=false)
+        if(check)
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

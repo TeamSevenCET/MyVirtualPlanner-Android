@@ -40,12 +40,11 @@
         app:layout_constraintTop_toTopOf="@+id/hguide_bottom_notice">
 
         <LinearLayout
+            android:id="@+id/fudge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
 
-            >
-
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/mainscreen_tv4"
                 android:layout_width="match_parent"
