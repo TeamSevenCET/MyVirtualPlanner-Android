@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "601424032590",
-    "firebase_url": "https://my-virtual-planner.firebaseio.com",
-    "project_id": "my-virtual-planner",
-    "storage_bucket": "my-virtual-planner.appspot.com"
+    "project_number": "115020019254",
+    "firebase_url": "https://myvirtualplanner-14e2c.firebaseio.com",
+    "project_id": "myvirtualplanner-14e2c",
+    "storage_bucket": "myvirtualplanner-14e2c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:601424032590:android:1e03639891eafba3",
+        "mobilesdk_app_id": "1:115020019254:android:1e03639891eafba3",
         "android_client_info": {
           "package_name": "io.github.teamseven.myvirtualplanner"
         }
       },
       "oauth_client": [
         {
-          "client_id": "601424032590-e8ql7lstajr6njg2too3qp17k0b38345.apps.googleusercontent.com",
+          "client_id": "115020019254-0pdf7d1iql1048eufeqcuubmjkl1pi1k.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDfOEymvOpjEAZ9ZZnAYa99mgkQjfy3ErA"
+          "current_key": "AIzaSyAsTDz4_SUYZsE4M0g-0LuCYVVASZcRbi8"
         }
       ],
       "services": {
