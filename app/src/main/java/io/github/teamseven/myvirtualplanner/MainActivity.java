@@ -49,7 +49,7 @@ import java.util.Calendar;
 
 import at.markushi.ui.CircleButton;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,DatePickerDialog.OnDateSetListener,
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Subjects.SubjectsListener, DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener{
 
     // Always remember to follow a naming scheme. The global variables should have a prefix, most commonly used one is m
@@ -240,6 +240,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    private void setNavigationViewListner() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         i=datePicker.getDayOfMonth();
@@ -352,14 +356,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    //add sub dynamic in drawer
-    private void addSub() {
-        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-        mNavigationView.setNavigationItemSelectedListener(this);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Menu menu = mNavigationView.getMenu();
-        menu.add("Subject 1");
-    }
+    //adds subjects dynamically to drawer
+    public void addSub(String str) {
+        if(str.equals("") || str.equals(" "))
+        {
+            Toast.makeText(this, "Please Add Subject!", Toast.LENGTH_SHORT).show();
+
+        }
+        else{
+            mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
+            mNavigationView.setNavigationItemSelectedListener(this);
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            Menu menu = mNavigationView.getMenu();
+            menu.add(str);
+            Toast.makeText(this, "Subject Added!", Toast.LENGTH_SHORT).show();
+        }}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -386,18 +397,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
-
-
+// Dialog box for subject addition to drawer
+    public void openDialog()
+    {
+        Subjects ob=new Subjects();
+        ob.show(getSupportFragmentManager(), "example dialog");
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         boolean check=true;
         switch (id) {
             case R.id.add_sub:
-//                TODO : Add a subject
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-                addSub();
-                check=false;
+//                Work : Subject Addition Done!
+                this.openDialog();
                 break;
             case R.id.exam:
                 Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
@@ -440,7 +453,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                Todo : Add all the other things that are needed in the navigation bar and then implement them here
 
         }
-        if(check)
             mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
