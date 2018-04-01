@@ -38,7 +38,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
+import android.widget.LinearLayout.LayoutParams;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,13 +64,80 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int mIndex=-1; //works as counter and flag for database
     private DatabaseReference mIndex_db = firebaseDatabase.getReference().child("mIndex");  //to update mIndex value
     private String date=null,time=null,rem_text=null,notice_string=null;  //date of rem, time of rem , notice in notice board
+    //Database always keeps mIndex value to know how many entires are there, which is used later by custom algortihms
+    //mIndex is intialised at -1 when the user has no reminders. So when authorising for each user node maintain mIndex value
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        //list of reminders //only shows top 10 rems and if less are there, replaced by quotes
+        mIndex_db.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String x=dataSnapshot.getValue().toString();
+                if(!x.equals("-1")){
+                    int y=Integer.parseInt(x);
+                    int z=10;
+                    while(y!=-1&&z!=0){
+                        final int zen=z;
+
+                        DatabaseReference yi=firebaseDatabase.getReference().child(Integer.toString(y));
+                        yi.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) { //easy to understand logic , DO NOT meddle if you dont understand
+                                TextView tv=new TextView(MainActivity.this);
+                                switch(zen){
+                                    case 10 : tv=(TextView)findViewById(R.id.mainscreen_tv10);
+                                        break;
+                                    case 9  : tv=(TextView)findViewById(R.id.mainscreen_tv9);
+                                        break;
+                                    case 8  : tv=(TextView)findViewById(R.id.mainscreen_tv8);
+                                        break;
+                                    case 7  : tv=(TextView)findViewById(R.id.mainscreen_tv7);
+                                        break;
+                                    case 6  : tv=(TextView)findViewById(R.id.mainscreen_tv6);
+                                        break;
+                                    case 5  : tv=(TextView)findViewById(R.id.mainscreen_tv5);
+                                        break;
+                                    case 4  : tv=(TextView)findViewById(R.id.mainscreen_tv4);
+                                        break;
+                                    case 3  : tv=(TextView)findViewById(R.id.mainscreen_tv3);
+                                        break;
+                                    case 2  : tv=(TextView)findViewById(R.id.mainscreen_tv2);
+                                        break;
+                                    case 1  : tv=(TextView)findViewById(R.id.mainscreen_tv1);
+                                        break;
+                                }
+                                String yi_text=dataSnapshot.getValue().toString();
+                                String yi_trim=yi_text.substring(11,yi_text.length());
+                                String yolo="<p>"+yi_trim+"</p>"+"<p>"+yi_text.substring(0,10)+"</p>";
+                                tv.setText(Html.fromHtml(yolo));
+                                tv.setBackgroundColor(Color.rgb(125,224,175));
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        y--;
+                        z--;
+                    }
+                }
+            }
+            //end of handling list of reminders
+            // TODO: check current date, remove the data with key = mIndex( bottom - most urgent)
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         setContentView(R.layout.navigation_drawer);
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
         setSupportActionBar(mToolbar);
@@ -101,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final DatabaseReference notice_text=firebaseDatabase.getReference();
         notice_db.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) { // logic for noticeboard to display most urgent from database
                 String in_value=dataSnapshot.getValue().toString();
                 if(!in_value.equals("-1")){
                     notice_text.child(in_value).addValueEventListener(new ValueEventListener() {
@@ -164,13 +231,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                 });
-                //TODO-Rudra: get text,date,time and store it either firebase or any other form we can retrieve from
+
 
             }
         });
-        //TODO-Rudra: write and call method to sort strings and its corresponding dates as per importance
-        // TODO-Rudra : Add functionality to display required most important/urgent string in notice box and set calender reminder
-        // TODO-Rudra : Also after the deadline, the next important task should take its place
+
 
     }
 
@@ -187,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(MainActivity.this,date,Toast.LENGTH_SHORT).show();
 
     }
-    public String theDate(int i){
+    public String theDate(int i){ //for formatting of date
         String i_s=Integer.toString(i);
         if(i_s.length()==1){
             i_s="0"+i_s;
@@ -196,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onTimeSet(TimePicker timePicker, int i, int i1) {
+    public void onTimeSet(TimePicker timePicker, int i, int i1) { //not needed for project now,may become important later
         Calendar calendar=Calendar.getInstance();
         i=timePicker.getCurrentHour();
         i1=timePicker.getCurrentMinute();
@@ -204,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(MainActivity.this,time,Toast.LENGTH_LONG).show();
 
     }
-    //prioritising algorithm
+    //prioritising algorithm , DO NOT meddle if you dont understand
     public void prioritise(String d){
         final String d_in=d;
         mIndex_db.addListenerForSingleValueEvent((new ValueEventListener() {
@@ -239,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }
                         });
                         y--;
-                   }
+                    }
 
                 }else{
                     mDataBase.child("0").setValue(date+"_"+rem_text);
@@ -376,7 +441,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
         if(check)
-        mDrawerLayout.closeDrawer(GravityCompat.START);
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
