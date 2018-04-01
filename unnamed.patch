@@ -1,0 +1,80 @@
+Index: app/google-services.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/google-services.json	(revision 10249cd256c2568d544f60e45fa2ca8be920ad2b)
++++ app/google-services.json	(date 1522588538703)
+@@ -1,27 +1,27 @@
+ {
+   "project_info": {
+-    "project_number": "601424032590",
+-    "firebase_url": "https://my-virtual-planner.firebaseio.com",
+-    "project_id": "my-virtual-planner",
+-    "storage_bucket": "my-virtual-planner.appspot.com"
++    "project_number": "115020019254",
++    "firebase_url": "https://myvirtualplanner-14e2c.firebaseio.com",
++    "project_id": "myvirtualplanner-14e2c",
++    "storage_bucket": "myvirtualplanner-14e2c.appspot.com"
+   },
+   "client": [
+     {
+       "client_info": {
+-        "mobilesdk_app_id": "1:601424032590:android:1e03639891eafba3",
++        "mobilesdk_app_id": "1:115020019254:android:1e03639891eafba3",
+         "android_client_info": {
+           "package_name": "io.github.teamseven.myvirtualplanner"
+         }
+       },
+       "oauth_client": [
+         {
+-          "client_id": "601424032590-e8ql7lstajr6njg2too3qp17k0b38345.apps.googleusercontent.com",
++          "client_id": "115020019254-0pdf7d1iql1048eufeqcuubmjkl1pi1k.apps.googleusercontent.com",
+           "client_type": 3
+         }
+       ],
+       "api_key": [
+         {
+-          "current_key": "AIzaSyDfOEymvOpjEAZ9ZZnAYa99mgkQjfy3ErA"
++          "current_key": "AIzaSyAsTDz4_SUYZsE4M0g-0LuCYVVASZcRbi8"
+         }
+       ],
+       "services": {
+Index: .idea/codeStyles/Project.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/codeStyles/Project.xml	(date 1522586568830)
++++ .idea/codeStyles/Project.xml	(date 1522586568830)
+@@ -0,0 +1,29 @@
++<component name="ProjectCodeStyleConfiguration">
++  <code_scheme name="Project" version="173">
++    <Objective-C-extensions>
++      <file>
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Import" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Macro" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Typedef" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Enum" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Constant" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Global" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Struct" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="FunctionPredecl" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Function" />
++      </file>
++      <class>
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Property" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Synthesize" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="InitMethod" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="StaticMethod" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="InstanceMethod" />
++        <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="DeallocMethod" />
++      </class>
++      <extensions>
++        <pair source="cpp" header="h" fileNamingConvention="NONE" />
++        <pair source="c" header="h" fileNamingConvention="NONE" />
++      </extensions>
++    </Objective-C-extensions>
++  </code_scheme>
++</component>
+\ No newline at end of file
