@@ -355,6 +355,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     //call compare date method to return true if argument is more urgent else false
                                     if ((date_comp(d_in.substring(0, 10), z_date) || d_in.substring(0, 10).equals(z_date))) { //when d_in is earlier or equal
                                         mDataBase.child(Integer.toString(y_in)).setValue(d_in);
+                                        mDataBase.child("mIndex").setValue(Integer.toString((y_in)));
+                                        System.exit(0);
+
 
                                     } else {
                                         mDataBase.child(Integer.toString(y_in)).setValue(z);
