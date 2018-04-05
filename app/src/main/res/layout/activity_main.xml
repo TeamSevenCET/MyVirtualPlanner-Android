@@ -46,6 +46,7 @@
             android:layout_height="wrap_content"
 
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/mainscreen_tv10"
                 android:layout_width="match_parent"
