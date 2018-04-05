@@ -11,7 +11,7 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-
+import java.util.regex.*;
 import java.text.DateFormat;
 import java.util.Date;
 import android.graphics.Color;
@@ -362,17 +362,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     String z_date = z.substring(0, 10);
                                     //call compare date method to return true if argument is more urgent else false
                                     if ((date_comp(d_in.substring(0, 10), z_date) || d_in.substring(0, 10).equals(z_date))) { //when d_in is earlier or equal
-                                        mDataBase.child(Integer.toString(y_in)).setValue(d_in);
-                                        try
-                                        {
-                                            Thread.sleep(1000);
-                                        }
-                                        catch (InterruptedException e)
-                                        {
-                                            e.printStackTrace();
+                                        if(d_in.substring(0,10).equals(z_date)){
+                                            mDataBase.child(Integer.toString(y_in)).setValue(z);
+                                            mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
+                                        }else {
+                                            mDataBase.child(Integer.toString(y_in)).setValue(d_in);
+                                            try
+                                            {
+                                                Thread.sleep(1000);
+                                            }
+                                            catch (InterruptedException e)
+                                            {
+                                                e.printStackTrace();
+                                            }
+
+                                            System.exit(0);
                                         }
 
-                                        System.exit(0);
                                     } else {
                                         mDataBase.child(Integer.toString(y_in)).setValue(z);
                                         mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
@@ -448,6 +454,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
 
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //proximity algorithm
+    public void proximity(String s1,String s2){
+        Pattern p=Pattern.compile("");
+        Matcher m=p.matcher(s1);
+        int check_exam_s1=0;
+        while(m.find()){
+            check_exam_s1=1;
+            break;
+        }
+        p=Pattern.compile("assignment");
     }
 
 
