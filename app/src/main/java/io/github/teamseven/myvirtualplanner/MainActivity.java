@@ -102,77 +102,80 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             yi.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) { //easy to understand logic , DO NOT meddle if you dont understand
-                                    TextView tv = new TextView(MainActivity.this);
-                                    switch (zen) {
-                                        case 10:
-                                            tv = (TextView) findViewById(R.id.mainscreen_tv10);
-                                            break;
-                                        case 9:
-                                            tv = (TextView) findViewById(R.id.mainscreen_tv9);
-                                            break;
-                                        case 8:
-                                            tv = (TextView) findViewById(R.id.mainscreen_tv8);
-                                            break;
-                                        case 7:
-                                            tv = (TextView) findViewById(R.id.mainscreen_tv7);
-                                            break;
-                                        case 6:
-                                            tv = (TextView) findViewById(R.id.mainscreen_tv6);
-                                            break;
-                                        case 5:
-                                            tv = (TextView) findViewById(R.id.mainscreen_tv5);
-                                            break;
-                                        case 4:
-                                            tv = (TextView) findViewById(R.id.mainscreen_tv4);
-                                            break;
-                                        case 3:
-                                            tv = (TextView) findViewById(R.id.mainscreen_tv3);
-                                            break;
-                                        case 2:
-                                            tv = (TextView) findViewById(R.id.mainscreen_tv2);
-                                            break;
-                                        case 1:
-                                            tv = (TextView) findViewById(R.id.mainscreen_tv1);
-                                            break;
-                                    }
-                                    String yi_text = dataSnapshot.getValue().toString();
-                                    String yi_trim = yi_text.substring(11, yi_text.length());
-                                    Calendar calendar = Calendar.getInstance();
-                                    SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-yyyy");
-                                    String strDate = mdformat.format(calendar.getTime());
-                                    String yolo = "<p>" + yi_trim.substring(0,yi_trim.length()-6)+ "</p>" + "<p>" + yi_text.substring(0, 10) + "</p>";
-                                    if (yi_text.substring(0, 10).equals(strDate)&&!time_comp(yi_trim.substring(yi_trim.length()-5,yi_trim.length()))) {
-                                        final int yi_remove_ind = Integer.parseInt(yi_removal.getKey());
-                                        mIndex_db.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                                if (dataSnapshot.exists()) {
-                                                    mIndex_db.setValue(Integer.toString(yi_remove_ind - 1));
+                                    if (dataSnapshot.exists()) {
+                                        TextView tv = new TextView(MainActivity.this);
+                                        switch (zen) {
+                                            case 10:
+                                                tv = (TextView) findViewById(R.id.mainscreen_tv10);
+                                                break;
+                                            case 9:
+                                                tv = (TextView) findViewById(R.id.mainscreen_tv9);
+                                                break;
+                                            case 8:
+                                                tv = (TextView) findViewById(R.id.mainscreen_tv8);
+                                                break;
+                                            case 7:
+                                                tv = (TextView) findViewById(R.id.mainscreen_tv7);
+                                                break;
+                                            case 6:
+                                                tv = (TextView) findViewById(R.id.mainscreen_tv6);
+                                                break;
+                                            case 5:
+                                                tv = (TextView) findViewById(R.id.mainscreen_tv5);
+                                                break;
+                                            case 4:
+                                                tv = (TextView) findViewById(R.id.mainscreen_tv4);
+                                                break;
+                                            case 3:
+                                                tv = (TextView) findViewById(R.id.mainscreen_tv3);
+                                                break;
+                                            case 2:
+                                                tv = (TextView) findViewById(R.id.mainscreen_tv2);
+                                                break;
+                                            case 1:
+                                                tv = (TextView) findViewById(R.id.mainscreen_tv1);
+                                                break;
+                                        }
+                                        String yi_text = dataSnapshot.getValue().toString();
+                                        String yi_trim = yi_text.substring(11, yi_text.length());
+                                        Calendar calendar = Calendar.getInstance();
+                                        SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-yyyy");
+                                        String strDate = mdformat.format(calendar.getTime());
+                                        String yolo = "<p>" + yi_trim.substring(0, yi_trim.length() - 6) + "</p>" + "<p>" + yi_text.substring(0, 10) + "</p>";
+                                        if (yi_text.substring(0, 10).equals(strDate) && !time_comp(yi_trim.substring(yi_trim.length() - 5, yi_trim.length()))) {
+                                            final int yi_remove_ind = Integer.parseInt(yi_removal.getKey());
+                                            mIndex_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    if (dataSnapshot.exists()) {
+                                                        mIndex_db.setValue(Integer.toString(yi_remove_ind - 1));
+                                                    }
                                                 }
-                                            }
 
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
 
-                                            }
-                                        });
-                                        //Toast.makeText(MainActivity.this,yi_remove_ind,Toast.LENGTH_LONG).show();
-                                        yi_removal.removeValue();
-                                        Intent i5=new Intent(getApplicationContext(),MainActivity.class);
-                                        startActivity(i5);
+                                                }
+                                            });
+                                            //Toast.makeText(MainActivity.this,yi_remove_ind,Toast.LENGTH_LONG).show();
+                                            yi_removal.removeValue();
+                                            Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
+                                            startActivity(i5);
 
-                                    } else {
-                                        tv.setText(Html.fromHtml(yolo));
-                                        tv.setBackgroundColor(Color.rgb(125, 224, 175));
+                                        } else {
+                                            tv.setText(Html.fromHtml(yolo));
+                                            tv.setBackgroundColor(Color.rgb(125, 224, 175));
+                                        }
                                     }
-                                }
+                                    }
 
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
+                                    @Override
+                                    public void onCancelled (DatabaseError databaseError){
 
-                                }
-                            });
+                                    }
+
+                                });
                             y--;
                             z--;
                         }
@@ -361,9 +364,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     if ((date_comp(d_in.substring(0, 10), z_date) || d_in.substring(0, 10).equals(z_date))) { //when d_in is earlier or equal
                                         mDataBase.child(Integer.toString(y_in)).setValue(d_in);
                                         mDataBase.child("mIndex").setValue(Integer.toString((y_in)));
+                                        try
+                                        {
+                                            Thread.sleep(1000);
+                                        }
+                                        catch (InterruptedException e)
+                                        {
+                                            e.printStackTrace();
+                                        }
+
                                         System.exit(0);
-
-
                                     } else {
                                         mDataBase.child(Integer.toString(y_in)).setValue(z);
                                         mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
@@ -381,10 +391,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     } else {
                         mDataBase.child("0").setValue(date + "_" + rem_text + "_" + time);
-                        finish();
                     }
                     mDataBase.child("mIndex").setValue(Integer.parseInt(x) + 1);
-                    finish();
+
                 }
             }
             @Override
