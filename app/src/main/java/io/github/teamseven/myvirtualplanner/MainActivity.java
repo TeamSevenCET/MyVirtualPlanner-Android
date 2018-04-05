@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Calendar calendar = Calendar.getInstance();
                                         SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-yyyy");
                                         String strDate = mdformat.format(calendar.getTime());
-                                        String yolo = "<p>" + yi_trim.substring(0, yi_trim.length() - 6) + "</p>" + "<p>" + yi_text.substring(0, 10) + "</p>";
+                                        String yolo = "<p>" +"<b>"+ yi_trim.substring(0, yi_trim.length() - 6)+"</b" + "</p>" + "<p>" +"<b>"+ yi_text.substring(0, 10) +"</b>"+ "</p>";
                                         if (yi_text.substring(0, 10).equals(strDate) && !time_comp(yi_trim.substring(yi_trim.length() - 5, yi_trim.length()))) {
                                             final int yi_remove_ind = Integer.parseInt(yi_removal.getKey());
                                             mIndex_db.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     tools:context="io.github.teamseven.myvirtualplanner.MainActivity">
-
     <include layout="@layout/top_toolbar" />
 
     <TextView
@@ -25,7 +24,8 @@
         app:layout_constraintBottom_toTopOf="@+id/hguide_bottom_notice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/hguide_top_notice" />
+        app:layout_constraintTop_toTopOf="@+id/hguide_top_notice"
+        />
 
     <ScrollView
         android:id="@+id/scrollView2"
