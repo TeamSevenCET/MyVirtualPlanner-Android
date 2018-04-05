@@ -265,7 +265,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
                 View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
                 final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
-                String text_rem=lReminder.getText().toString();
                 final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
                 final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
                 mBuilder.setView(lview);
