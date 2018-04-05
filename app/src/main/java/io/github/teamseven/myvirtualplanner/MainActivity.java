@@ -349,6 +349,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String x = dataSnapshot.getValue().toString();
+                    mDataBase.child("mIndex").setValue(Integer.parseInt(x) + 1);
                     if (!x.equals("-1")) {
                         int y = Integer.parseInt(x);
                         while (y != -1) {
@@ -363,7 +364,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     //call compare date method to return true if argument is more urgent else false
                                     if ((date_comp(d_in.substring(0, 10), z_date) || d_in.substring(0, 10).equals(z_date))) { //when d_in is earlier or equal
                                         mDataBase.child(Integer.toString(y_in)).setValue(d_in);
-                                        mDataBase.child("mIndex").setValue(Integer.toString((y_in)));
                                         try
                                         {
                                             Thread.sleep(1000);
@@ -392,7 +392,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     } else {
                         mDataBase.child("0").setValue(date + "_" + rem_text + "_" + time);
                     }
-                    mDataBase.child("mIndex").setValue(Integer.parseInt(x) + 1);
+
 
                 }
             }
