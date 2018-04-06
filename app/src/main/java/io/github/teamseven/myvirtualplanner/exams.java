@@ -1,6 +1,4 @@
-/**
- * Created by Matt110110 on 05/03/2018
- */
+
 
 package io.github.teamseven.myvirtualplanner;
 
@@ -88,38 +86,6 @@ public class exams extends AppCompatActivity implements NavigationView.OnNavigat
 //                TODO : Logic for assignment
                 Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.personal:
-//                TODO : Open a new activity containing all the things related to personal. *hint* Intent
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.misc:
-//                TODO : New activity for all things misc using Intent
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-                break;
-//            case R.id.sub_1:
-////                TODO : open subject page
-//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.sub_2:
-////                TODO : open subject page
-//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.sub_3:
-////                TODO : open subject page
-//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.sub_4:
-////                TODO : open subject page
-//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.sub_5:
-////                TODO : open subject page
-//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-//                break;
-
-
-//                Todo : Add all the other things that are needed in the navigation bar and then implement them here
-
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

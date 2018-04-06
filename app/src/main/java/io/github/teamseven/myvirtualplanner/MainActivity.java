@@ -1,9 +1,5 @@
 package io.github.teamseven.myvirtualplanner;
 
-/**
- * Created by teamseven
- */
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -250,7 +246,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 }
                             });
                         }else{
-                            ///////////////////////////////////////////////////////////////////////////////////////////
                             //pass recent two urgent strings to proximity
                             notice_text.child(in_value).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
@@ -506,8 +501,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
 
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////////////
-
     //proximity algorithm
     public boolean proximity(String s1,String s2){ //first param: lower urgent date , second param: urgent date //false if conflict
         if(date_proximity(s1.substring(0,10),s2.substring(0,10))) {
@@ -526,7 +519,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             if (check_exam_s1 == 1 && check_assgn_s2 == 1) {
-                notice_string = "You have clash between exam and assignment, Complete Assignment soon";
+                notice_string = getString(R.string.clashAssExm);
                 return false;
             }
             p = Pattern.compile("[Cc][Oo][Nn][Tt][Ee][Ss][Tt]");
@@ -537,7 +530,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             if (check_exam_s1 == 1 && check_contest_s2 == 1) {
-                notice_string = "Your exam(s) seem to clash with a certain contest, You need to read for exams soon";
+                notice_string = getString(R.string.clashEventExm);
                 return false;
             }
             p = Pattern.compile("[Aa][Ss][Ss][Ii][Gg][Nn][Mm][Ee][Nn][Tt]");
@@ -548,22 +541,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             if (check_assgn_s1 == 1 && check_contest_s2 == 1) {
-                notice_string = "You have assignments due, and you also need to prepare for contest. Need to sort this out";
+                notice_string = getString(R.string.clashEventAss);
                 return false;
             }
             if(check_exam_s1==1){
-                notice_string = "You have stuff pending during exam preparation time. Careful";
+                notice_string = getString(R.string.clashExmEverything);
                 return false;
             }
             if(check_assgn_s1==1){
-                notice_string = "Assignmnets needs to be done now, stuff to do";
+                notice_string = "Assignments needs to be done now, stuff to do";
                 return false;
             }
             //TODO: Add more conditions to check conflicts if any //recommended
         }
         return true;
     }
-    /////////////////////////////////////////////////////////////////////////////////
     public boolean date_proximity(String date1,String date2){ //returns true if there is a conflict in 40hrs
         DateFormat formatter;
         Date date_1=new Date();
@@ -641,49 +633,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         boolean check=true;
         switch (id) {
             case R.id.add_sub:
-//                Work : Subject Addition Done!
                 this.openDialog();
                 break;
             case R.id.exam:
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, exams.class));
                 break;
             case R.id.ass:
 //                TODO : Logic for assignment
                 Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.personal:
-//                TODO : Open a new activity containing all the things related to personal. *hint* Intent
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.misc:
-//                TODO : New activity for all things misc using Intent
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-                break;
-//            case R.id.sub_1:
-////                TODO : open subject page
-//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.sub_2:
-////                TODO : open subject page
-//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.sub_3:
-////                TODO : open subject page
-//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.sub_4:
-////                TODO : open subject page
-//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.sub_5:
-////                TODO : open subject page
-//                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-//                break;
-
-
-//                Todo : Add all the other things that are needed in the navigation bar and then implement them here
-
         }
             mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
