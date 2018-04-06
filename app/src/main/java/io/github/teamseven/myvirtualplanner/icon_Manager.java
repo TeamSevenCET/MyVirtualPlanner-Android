@@ -5,9 +5,6 @@ import android.graphics.Typeface;
 
 import java.util.Hashtable;
 
-/**
- * Created by phantom-5 on 3/3/2018.
- */
 
 public class icon_Manager {
     private static Hashtable<String,Typeface> cached_icons = new Hashtable<>();

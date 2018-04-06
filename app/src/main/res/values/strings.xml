@@ -22,4 +22,8 @@
     <string name="title_activity_detail">detailActivity</string>
     <string name="exam_details">TextView</string>
     <string name="title_activity_subjects">Subjects</string>
+    <string name="clashAssExm">You have clash between exam and assignment, Complete Assignment soon</string>
+    <string name="clashEventExm">Your exam(s) seem to clash with a certain contest, You need to read for exams soon</string>
+    <string name="clashEventAss">You have assignments due, and you also need to prepare for contest. Need to sort this out</string>
+    <string name="clashExmEverything">You have stuff pending during exam preparation time. Careful</string>
 </resources>
