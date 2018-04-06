@@ -11,7 +11,8 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-
+import java.util.regex.*;
+import java.util.concurrent.TimeUnit;
 import java.text.DateFormat;
 import java.util.Date;
 import android.graphics.Color;
@@ -227,25 +228,75 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) { // logic for noticeboard to display most urgent from database
                 if (dataSnapshot.exists()) {
                     String in_value = dataSnapshot.getValue().toString();
+                    final String for_date = Integer.toString(Integer.parseInt(in_value)-1);
                     if (!in_value.equals("-1")) {
-                        notice_text.child(in_value).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    String x = dataSnapshot.getValue().toString();
-                                    notice_string = x.substring(11, x.length()-6);
-                                    char icon = notice.getText().charAt(0);
-                                    String ic = Character.toString(icon);
-                                    String s = ic + "<font color=##FD971F><b> Important Notice</b></font><p>" + notice_string + "</p>";
-                                    notice.setText(Html.fromHtml(s));
+                        if (in_value.equals("0")) {
+                            notice_text.child(in_value).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        String x = dataSnapshot.getValue().toString();
+                                        notice_string = x.substring(11, x.length() - 6);
+                                        char icon = notice.getText().charAt(0);
+                                        String ic = Character.toString(icon);
+                                        String s = ic + "<font color=##FD971F><b> Important Notice</b></font><p>" + notice_string + "</p>";
+                                        notice.setText(Html.fromHtml(s));
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                            }
-                        });
+                                }
+                            });
+                        }else{
+                            ///////////////////////////////////////////////////////////////////////////////////////////
+                            //pass recent two urgent strings to proximity
+                            notice_text.child(in_value).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists()){
+                                        final String x1 = dataSnapshot.getValue().toString();
+                                        final String datex1 = x1.substring(0,10);
+                                        notice_text.child(for_date).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                if(dataSnapshot.exists()){
+                                                    final String x2 = dataSnapshot.getValue().toString();
+                                                    final String datex2 = x2.substring(0,10);
+                                                    if(!proximity(x2,x1)){
+                                                        proximity(x2,x1);
+                                                        char icon = notice.getText().charAt(0);
+                                                        String ic = Character.toString(icon);
+                                                        String s = ic + "<font color=##FD971F><b> Important Notice</b></font><p>" + notice_string + "</p>";
+                                                        notice.setText(Html.fromHtml(s));
+
+                                                    }else{
+                                                        notice_string=x1.substring(11,x1.length()-5);
+                                                        char icon = notice.getText().charAt(0);
+                                                        String ic = Character.toString(icon);
+                                                        String s = ic + "<font color=##FD971F><b> Important Notice</b></font><p>" + notice_string + "</p>";
+                                                        notice.setText(Html.fromHtml(s));
+                                                    }
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                            //if it returns true no need to do anything
+                            //else assign a new date and stuff
+                        }
                     }
                 }
             }
@@ -323,7 +374,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onTimeSet(TimePicker timePicker, int i, int i1) { //not needed for project now,may become important later
+    public void onTimeSet(TimePicker timePicker, int i, int i1) {
         Calendar calendar=Calendar.getInstance();
         i=timePicker.getCurrentHour();
         i1=timePicker.getCurrentMinute();
@@ -362,17 +413,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     String z_date = z.substring(0, 10);
                                     //call compare date method to return true if argument is more urgent else false
                                     if ((date_comp(d_in.substring(0, 10), z_date) || d_in.substring(0, 10).equals(z_date))) { //when d_in is earlier or equal
-                                        mDataBase.child(Integer.toString(y_in)).setValue(d_in);
-                                        try
-                                        {
-                                            Thread.sleep(1000);
-                                        }
-                                        catch (InterruptedException e)
-                                        {
-                                            e.printStackTrace();
+                                        if(d_in.substring(0,10).equals(z_date)){
+                                            mDataBase.child(Integer.toString(y_in)).setValue(z);
+                                            mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
+                                        }else {
+                                            mDataBase.child(Integer.toString(y_in)).setValue(d_in);
+                                            try
+                                            {
+                                                Thread.sleep(1000);
+                                            }
+                                            catch (InterruptedException e)
+                                            {
+                                                e.printStackTrace();
+                                            }
+
+                                            System.exit(0);
                                         }
 
-                                        System.exit(0);
                                     } else {
                                         mDataBase.child(Integer.toString(y_in)).setValue(z);
                                         mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
@@ -448,6 +505,86 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
 
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //proximity algorithm
+    public boolean proximity(String s1,String s2){ //first param: lower urgent date , second param: urgent date //false if conflict
+        if(date_proximity(s1.substring(0,10),s2.substring(0,10))) {
+            Pattern p = Pattern.compile("[Ee][Xx][Aa][Mm]");
+            Matcher m = p.matcher(s1);
+            int check_exam_s1 = 0;
+            while (m.find()){
+                    check_exam_s1 = 1;
+                break;
+            }
+            p = Pattern.compile("[Aa][Ss][Ss][Ii][Gg][Nn][Mm][Ee][Nn][Tt]");
+            m = p.matcher(s2);
+            int check_assgn_s2 = 0;
+            while (m.find()) {
+                    check_assgn_s2 = 1;
+                break;
+            }
+            if (check_exam_s1 == 1 && check_assgn_s2 == 1) {
+                notice_string = "You have clash between exam and assignment, Complete Assignment soon";
+                return false;
+            }
+            p = Pattern.compile("[Cc][Oo][Nn][Tt][Ee][Ss][Tt]");
+            m = p.matcher(s2);
+            int check_contest_s2 = 0;
+            while (m.find()) {
+                    check_contest_s2 = 1;
+                break;
+            }
+            if (check_exam_s1 == 1 && check_contest_s2 == 1) {
+                notice_string = "Your exam(s) seem to clash with a certain contest, You need to read for exams soon";
+                return false;
+            }
+            p = Pattern.compile("[Aa][Ss][Ss][Ii][Gg][Nn][Mm][Ee][Nn][Tt]");
+            m = p.matcher(s1);
+            int check_assgn_s1 = 0;
+            while (m.find()) {
+                    check_assgn_s1 = 1;
+                break;
+            }
+            if (check_assgn_s1 == 1 && check_contest_s2 == 1) {
+                notice_string = "You have assignments due, and you also need to prepare for contest. Need to sort this out";
+                return false;
+            }
+            if(check_exam_s1==1){
+                notice_string = "You have stuff pending during exam preparation time. Careful";
+                return false;
+            }
+            if(check_assgn_s1==1){
+                notice_string = "Assignmnets needs to be done now, stuff to do";
+                return false;
+            }
+            //TODO: Add more conditions to check conflicts if any //recommended
+        }
+        return true;
+    }
+    /////////////////////////////////////////////////////////////////////////////////
+    public boolean date_proximity(String date1,String date2){ //returns true if there is a conflict in 40hrs
+        DateFormat formatter;
+        Date date_1=new Date();
+        formatter = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            date_1 = formatter.parse(date1);
+            SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-yyyy");
+            String strDate = mdformat.format(date_1);
+        }catch(Exception e){}
+        Date date_2=new Date();
+        try{
+            date_2 = formatter.parse(date2);
+            SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-yyyy");
+            String strDate = mdformat.format(date_2);
+        }catch(Exception e){}
+        long duration=date_1.getTime()-date_2.getTime();
+        long diffInHours=Math.abs(TimeUnit.MILLISECONDS.toHours(duration));
+        if(diffInHours<=48){
+            return true;
+        }
+        return false;
     }
 
 
