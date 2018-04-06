@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView mNavigationView; // The navigation view
     private TextView notice; // The notice text view to show what important notifs we have
     private CircleButton mAddBtn; // Button to add new reminders
-    private int mIndex=-1; //works as counter and flag for database
+    private int mIndex=-1; //works as counter and flag for database todo : remove if not necessary
     private DatabaseReference mIndex_db = firebaseDatabase.getReference().child("mIndex");  //to update mIndex value
     private String date=null,time=null,rem_text=null,notice_string=null;  //date of rem, time of rem , notice in notice board
     //Database always keeps mIndex value to know how many entires are there, which is used later by custom algortihms
@@ -343,11 +343,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void setNavigationViewListner() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-          
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         i=datePicker.getDayOfMonth();
@@ -607,9 +602,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        Todo : Add some required functionality here
         int id = item.getItemId();
         switch (id) {
-            case R.id.dropDown_settings:
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.dropDown_login:
                 Toast.makeText(this, "Log in / Sign up", Toast.LENGTH_SHORT).show();
                 break;
@@ -617,7 +609,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
                 break;
 
-//                TODO : A few more items need to be added. There will be no nav bar in the bottom and all of them will be included here.
         }
         return super.onOptionsItemSelected(item);
     }
@@ -630,7 +621,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        boolean check=true;
         switch (id) {
             case R.id.add_sub:
                 this.openDialog();
