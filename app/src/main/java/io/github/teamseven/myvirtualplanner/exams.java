@@ -2,6 +2,7 @@
 
 package io.github.teamseven.myvirtualplanner;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -35,6 +36,7 @@ public class exams extends AppCompatActivity implements NavigationView.OnNavigat
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mNavigationView.setNavigationItemSelectedListener(this);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -46,28 +48,14 @@ public class exams extends AppCompatActivity implements NavigationView.OnNavigat
 //        Todo : Add some required functionality here
         int id = item.getItemId();
         switch (id) {
-            case R.id.dropDown_settings:
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.dropDown_login:
                 Toast.makeText(this, "Log in / Sign up", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.dropDown_aboutUs:
                 Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
                 break;
-
-//                TODO : A few more items need to be added. There will be no nav bar in the bottom and all of them will be included here.
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void addSub() {
-        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-        mNavigationView.setNavigationItemSelectedListener(this);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Menu menu = mNavigationView.getMenu();
-        menu.add("Subject 1");
-        mDrawerLayout.closeDrawers();
     }
 
     @Override
@@ -75,12 +63,9 @@ public class exams extends AppCompatActivity implements NavigationView.OnNavigat
         int id = item.getItemId();
         switch (id) {
             case R.id.add_sub:
-//                TODO : Add a subject
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
-                addSub();
                 break;
             case R.id.exam:
-                Toast.makeText(this, "Already in exams", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, exams.class));
                 break;
             case R.id.ass:
 //                TODO : Logic for assignment
