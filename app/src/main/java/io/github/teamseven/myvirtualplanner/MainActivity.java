@@ -43,6 +43,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private CircleButton mAddBtn; // Button to add new reminders
     private int mIndex=-1; //works as counter and flag for database todo : remove if not necessary
     private DatabaseReference mIndex_db = firebaseDatabase.getReference().child("mIndex");  //to update mIndex value
-    private String date=null,time=null,rem_text=null,notice_string=null;  //date of rem, time of rem , notice in notice board
+    private String date=null,time=null,rem_text=null,notice_string=null; //date of rem, time of rem , notice in notice board
+    private String user_token="";
     //Database always keeps mIndex value to know how many entires are there, which is used later by custom algortihms
     //mIndex is intialised at -1 when the user has no reminders. So when authorising for each user node maintain mIndex value
 
@@ -81,7 +83,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+            user_token=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }else{
+            //add code TODO: IMPORTANT PART ( redirect user to login/registration
+        }
 
+        final String user_token_inner=user_token;
+        mDataBase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(user_token_inner)){
+                    //do nothing
+                }else{
+                    mDataBase.setValue(user_token_inner);
+                    mDataBase=firebaseDatabase.getReference().child(user_token_inner);
+                    mDataBase.setValue("mIndex");
+                    mIndex_db=firebaseDatabase.getReference().child(user_token_inner).child("mIndex");
+                    mIndex_db.setValue("-1");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDataBase=firebaseDatabase.getReference().child(user_token_inner);
+        mIndex_db=firebaseDatabase.getReference().child(user_token_inner).child("mIndex");
+        
+        Toast.makeText(MainActivity.this,mIndex_db.toString(),Toast.LENGTH_LONG).show();
         //list of reminders //only shows top 10 rems and if less are there, replaced by quotes
         mIndex_db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -94,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         while (y != -1 && z != 0) {
                             final int zen = z;
 
-                            DatabaseReference yi = firebaseDatabase.getReference().child(Integer.toString(y));
+                            DatabaseReference yi = firebaseDatabase.getReference().child(user_token).child(Integer.toString(y));
                             final DatabaseReference yi_removal = yi;
                             yi.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
@@ -217,8 +249,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         notice.setTypeface(mIconManager.get_icons(
                 "fonts/ionicons.ttf",this
         ));
-        DatabaseReference notice_db=firebaseDatabase.getReference().child("mIndex");
-        final DatabaseReference notice_text=firebaseDatabase.getReference();
+        DatabaseReference notice_db=mIndex_db;
+        final DatabaseReference notice_text=mDataBase;
         notice_db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) { // logic for noticeboard to display most urgent from database
@@ -389,13 +421,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String x = dataSnapshot.getValue().toString();
-                    mDataBase.child("mIndex").setValue(Integer.parseInt(x) + 1);
+                    mIndex_db.setValue(Integer.parseInt(x) + 1);
                     if (!x.equals("-1")) {
                         int y = Integer.parseInt(x);
                         while (y != -1) {
                             final int y_in = y + 1;
                             final int y_ex = y;
-                            DatabaseReference yi = firebaseDatabase.getReference().child(Integer.toString(y));
+                            DatabaseReference yi = firebaseDatabase.getReference().child(user_token).child(Integer.toString(y));
                             yi.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
