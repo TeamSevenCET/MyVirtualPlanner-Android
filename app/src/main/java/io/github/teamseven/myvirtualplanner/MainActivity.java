@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDataBase=firebaseDatabase.getReference().child(user_token_inner);
         mIndex_db=firebaseDatabase.getReference().child(user_token_inner).child("mIndex");
         
-        Toast.makeText(MainActivity.this,mIndex_db.toString(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this,mIndex_db.toString(),Toast.LENGTH_LONG).show();
         //list of reminders //only shows top 10 rems and if less are there, replaced by quotes
         mIndex_db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                         notice.setText(Html.fromHtml(s));
 
                                                     }else{
-                                                        notice_string=x1.substring(11,x1.length()-5);
+                                                        notice_string=x1.substring(11,x1.length()-6);
                                                         char icon = notice.getText().charAt(0);
                                                         String ic = Character.toString(icon);
                                                         String s = ic + "<font color=##FD971F><b> Important Notice</b></font><p>" + notice_string + "</p>";
@@ -416,71 +416,70 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //prioritising algorithm , DO NOT meddle if you dont understand
     public void prioritise(String d){
         final String d_in=d;
-        mIndex_db.addListenerForSingleValueEvent((new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    String x = dataSnapshot.getValue().toString();
-                    mIndex_db.setValue(Integer.parseInt(x) + 1);
-                    if (!x.equals("-1")) {
-                        int y = Integer.parseInt(x);
-                        while (y != -1) {
-                            final int y_in = y + 1;
-                            final int y_ex = y;
-                            DatabaseReference yi = firebaseDatabase.getReference().child(user_token).child(Integer.toString(y));
-                            yi.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    String z = dataSnapshot.getValue().toString();
-                                    String z_date = z.substring(0, 10);
-                                    //call compare date method to return true if argument is more urgent else false
-                                    if ((date_comp(d_in.substring(0, 10), z_date) || d_in.substring(0, 10).equals(z_date))) { //when d_in is earlier or equal
-                                        if(d_in.substring(0,10).equals(z_date)){
-                                            mDataBase.child(Integer.toString(y_in)).setValue(z);
-                                            mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
-                                        }else {
-                                            mDataBase.child(Integer.toString(y_in)).setValue(d_in);
-                                            try
-                                            {
-                                                Thread.sleep(1000);
-                                            }
-                                            catch (InterruptedException e)
-                                            {
-                                                e.printStackTrace();
-                                            }
-
-                                            System.exit(0);
-                                        }
-
-                                    } else {
+     mIndex_db.addListenerForSingleValueEvent((new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            if (dataSnapshot.exists()) {
+                String x = dataSnapshot.getValue().toString();
+                mDataBase.child("mIndex").setValue(Integer.parseInt(x) + 1);
+                if (!x.equals("-1")) {
+                    int y = Integer.parseInt(x);
+                    Log.d("MyTest","Y outside loop: "+Integer.toString(y));
+                    while (y > -1) {
+                        final int y_in = y + 1;
+                        final int y_ex = y;
+                        Log.d("MyTest","Y inside loop: "+Integer.toString(y_ex));
+                        DatabaseReference yi = firebaseDatabase.getReference().child(user_token).child(Integer.toString(y));
+                        yi.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String z = dataSnapshot.getValue().toString();
+                                String z_date = z.substring(0, 10);
+                                Log.d("MyTest","Y inside inner: "+Integer.toString(y_ex));
+                                //call compare date method to return true if argument is more urgent else false
+                                if ((date_comp(d_in.substring(0, 10), z_date) || d_in.substring(0, 10).equals(z_date))) { //when d_in is earlier or equal
+                                    if(d_in.substring(0,10).equals(z_date)){
                                         mDataBase.child(Integer.toString(y_in)).setValue(z);
                                         mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
+                                    }else {
+                                        mDataBase.child(Integer.toString(y_in)).setValue(d_in);
+                                        System.exit(0);
                                     }
 
+                                } else {
+                                    mDataBase.child(Integer.toString(y_in)).setValue(z);
+                                    mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
+
                                 }
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
+                            }
 
-                                }
-                            });
-                            y--;
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        try{
+                           Thread.sleep(1500);
+                        }catch(Exception e){
                         }
+                       y--;
+                   }
 
-                    } else {
-                        mDataBase.child("0").setValue(date + "_" + rem_text + "_" + time);
-                    }
-
-
+                } else {
+                    mDataBase.child("0").setValue(date + "_" + rem_text + "_" + time);
                 }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+
 
             }
-        }));
-        finish();
-    }
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    }));
+    finish();
+}
     //end of prioritising algorithm
     //end of dealing with reminder
 
@@ -583,6 +582,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return true;
     }
+
     public boolean date_proximity(String date1,String date2){ //returns true if there is a conflict in 40hrs
         DateFormat formatter;
         Date date_1=new Date();
@@ -605,6 +605,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
+
 
 
     //adds subjects dynamically to drawer
