@@ -43,6 +43,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -80,6 +81,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            String str = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Throws exception if not logged in
+        } catch (Exception e) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class)); // When exception arises we go to log in
+        }
+
         setContentView(R.layout.activity_main);
 
         //list of reminders //only shows top 10 rems and if less are there, replaced by quotes
