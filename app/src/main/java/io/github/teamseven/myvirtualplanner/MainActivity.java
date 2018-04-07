@@ -618,7 +618,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         switch (id) {
             case R.id.dropDown_login:
-                startActivity(new Intent(this, LoginActivity.class));
+                FirebaseAuth.getInstance().signOut();
+                Log.d("Signout", "onOptionsItemSelected: Sign out successful");
                 break;
             case R.id.dropDown_aboutUs:
                 Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
