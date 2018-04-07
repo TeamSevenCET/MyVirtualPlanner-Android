@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Database always keeps mIndex value to know how many entires are there, which is used later by custom algortihms
     //mIndex is intialised at -1 when the user has no reminders. So when authorising for each user node maintain mIndex value
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             user_token=FirebaseAuth.getInstance().getCurrentUser().getUid();
         }else{
             //add code TODO: IMPORTANT PART ( redirect user to login/registration
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(loginIntent);
         }
 
         final String user_token_inner=user_token;
@@ -106,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+ 
             }
         });
 
@@ -114,6 +119,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mIndex_db=firebaseDatabase.getReference().child(user_token_inner).child("mIndex");
         
         //Toast.makeText(MainActivity.this,mIndex_db.toString(),Toast.LENGTH_LONG).show();
+  /**  I HAVE PLACED THIS REDIRECTING FEATURE ABOVE ( CHECK ABOVE TILL YOU FIND ) 
+  
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(loginIntent);
+                }
+            }
+        };
+        **/
+
         //list of reminders //only shows top 10 rems and if less are there, replaced by quotes
         mIndex_db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -636,7 +656,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         switch (id) {
             case R.id.dropDown_login:
-                startActivity(new Intent(this, LoginActivity.class));
+                FirebaseAuth.getInstance().signOut();
+                Log.d("Signout", "onOptionsItemSelected: Sign out successful");
                 break;
             case R.id.dropDown_aboutUs:
                 Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
@@ -677,5 +698,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
     }
 }
