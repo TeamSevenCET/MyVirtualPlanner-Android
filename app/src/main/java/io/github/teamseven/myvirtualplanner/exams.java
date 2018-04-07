@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import at.markushi.ui.CircleButton;
 
-public class exams extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Subjects.SubjectsListener {
+public class exams extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private icon_Manager mIconManager; // Icon manager object, for adding glyphs
     private Toolbar mToolbar; // Toolbar object for the top toolbar
@@ -58,21 +58,11 @@ public class exams extends AppCompatActivity implements NavigationView.OnNavigat
         return super.onOptionsItemSelected(item);
     }
 
-    private void addSub() {
-        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-        mNavigationView.setNavigationItemSelectedListener(this);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Menu menu = mNavigationView.getMenu();
-        menu.add("Subject 1");
-        mDrawerLayout.closeDrawers();
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.add_sub:
-                this.openDialog();
                 break;
             case R.id.exam:
                 startActivity(new Intent(this, exams.class));
@@ -84,26 +74,6 @@ public class exams extends AppCompatActivity implements NavigationView.OnNavigat
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void addSub(String str) {
-        if (str.equals("") || str.equals(" ")) {
-            Toast.makeText(this, "Please Add Subject!", Toast.LENGTH_SHORT).show();
-
-        } else {
-            mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-            mNavigationView.setNavigationItemSelectedListener(this);
-            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-            Menu menu = mNavigationView.getMenu();
-            menu.add(str);
-            Toast.makeText(this, "Subject Added!", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void openDialog()
-    {
-        Subjects ob = new Subjects();
-        ob.show(getSupportFragmentManager(), "example dialog");
     }
 
     @Override
