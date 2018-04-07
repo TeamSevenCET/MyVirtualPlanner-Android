@@ -77,18 +77,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Database always keeps mIndex value to know how many entires are there, which is used later by custom algortihms
     //mIndex is intialised at -1 when the user has no reminders. So when authorising for each user node maintain mIndex value
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        try {
-            String str = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Throws exception if not logged in
-        } catch (Exception e) {
-            startActivity(new Intent(MainActivity.this, LoginActivity.class)); // When exception arises we go to log in
-        }
-
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(loginIntent);
+                }
+            }
+        };
 
         //list of reminders //only shows top 10 rems and if less are there, replaced by quotes
         mIndex_db.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -652,5 +659,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
     }
 }
