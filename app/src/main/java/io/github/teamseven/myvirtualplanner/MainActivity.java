@@ -603,7 +603,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         switch (id) {
             case R.id.dropDown_login:
-                Toast.makeText(this, "Log in / Sign up", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.dropDown_aboutUs:
                 Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
