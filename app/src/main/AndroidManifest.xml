@@ -26,10 +26,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".exams" />
-        <!--<activity-->
-            <!--android:name=".Subjects"-->
-            <!--android:label="@string/title_activity_subjects"-->
-            <!--android:theme="@style/AppTheme" />-->
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"></activity>
