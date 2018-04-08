@@ -85,14 +85,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-            user_token=FirebaseAuth.getInstance().getCurrentUser().getUid();
-        }else{
-            //add code TODO: IMPORTANT PART ( redirect user to login/registration
-            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+
+        /**
+        * Start of "You shall log in to pass"
+        */
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(loginIntent);
+                }
+            }
+        };
+
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+
+            user_token=FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         }
+
+        /**
+         * End of "You Shall log in to pass with user_token"
+         */
 
         final String user_token_inner=user_token;
         mDataBase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -119,20 +136,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mIndex_db=firebaseDatabase.getReference().child(user_token_inner).child("mIndex");
         
         //Toast.makeText(MainActivity.this,mIndex_db.toString(),Toast.LENGTH_LONG).show();
-  /**  I HAVE PLACED THIS REDIRECTING FEATURE ABOVE ( CHECK ABOVE TILL YOU FIND ) 
-  
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() == null) {
-                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(loginIntent);
-                }
-            }
-        };
-        **/
 
         //list of reminders //only shows top 10 rems and if less are there, replaced by quotes
         mIndex_db.addListenerForSingleValueEvent(new ValueEventListener() {
