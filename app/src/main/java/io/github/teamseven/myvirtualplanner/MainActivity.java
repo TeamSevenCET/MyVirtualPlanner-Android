@@ -362,7 +362,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("circle", "onClick: Add btn clicked");
                 AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
                 View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
                 final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
@@ -598,7 +597,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
             if(check_assgn_s1==1){
-                notice_string = "Assignments needs to be done now, stuff to do";
+                notice_string = getString(R.string.doAss);
                 return false;
             }
             //TODO: Add more conditions to check conflicts if any //recommended
@@ -660,10 +659,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id) {
             case R.id.dropDown_login:
                 FirebaseAuth.getInstance().signOut();
-                Log.d("Signout", "onOptionsItemSelected: Sign out successful");
                 break;
             case R.id.dropDown_aboutUs:
                 Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
+                // TODO : Priya add your about us page here
                 break;
 
         }
@@ -686,7 +685,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this, exams.class));
                 break;
             case R.id.ass:
-//                TODO : Logic for assignment
+//                TODO : Logic for assignment lets remove this altogether because it seems like a lot more work
                 Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
                 break;
         }

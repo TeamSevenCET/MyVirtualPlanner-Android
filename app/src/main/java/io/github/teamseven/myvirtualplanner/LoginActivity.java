@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private FirebaseAuth mAuth;
+    private Button mSignUp;
 
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -84,6 +85,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signIn();
+            }
+        });
+
+        mSignUp = (Button) findViewById(R.id.signUpBtn);
+        mSignUp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
