@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.regex.*;
 import java.util.concurrent.TimeUnit;
 import java.text.DateFormat;
@@ -44,11 +47,13 @@ import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -57,6 +62,7 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 import at.markushi.ui.CircleButton;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Subjects.SubjectsListener, DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener{
@@ -104,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(FirebaseAuth.getInstance().getCurrentUser()!=null){
 
             user_token=FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         }
 
         /**
@@ -394,8 +399,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
     }
+
+    /**
+     * The updateUI method can be used to update the UI as it retrieves the name, email and profile pic
+     * from firebase and gives us nice simple to use strings. There is no problems there. But there is some problem
+     * with the bloody navigation_header.xml as the error message says the target cannot be null. Let's see if this
+     * is something I can fix within the deadline or I will just change the navigation header altogether.
+     * */
 
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
@@ -658,7 +669,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         switch (id) {
             case R.id.dropDown_login:
-                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this, profile.class));
                 break;
             case R.id.dropDown_aboutUs:
                 Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
