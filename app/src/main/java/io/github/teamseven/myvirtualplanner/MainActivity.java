@@ -110,8 +110,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(FirebaseAuth.getInstance().getCurrentUser()!=null){
 
             user_token=FirebaseAuth.getInstance().getCurrentUser().getUid();
-            FirebaseUser user = mAuth.getCurrentUser();
-//            updateUI(user);
         }
 
         /**
@@ -410,28 +408,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * is something I can fix within the deadline or I will just change the navigation header altogether.
      * */
 
-//    private void updateUI(FirebaseUser currentUser) {
-//
-//        TextView yourName = (TextView) findViewById(R.id.nav_name);
-//        TextView yourEmail = (TextView) findViewById(R.id.nav_email);
-//        CircleImageView civ = (CircleImageView) findViewById(R.id.circleImageView);
-//
-//        if (currentUser == null) {
-//            // Do nothing
-//        } else {
-//            String name = currentUser.getDisplayName();
-////            yourName.setText(name);
-//            Log.d("ProStuff", "updateUI: " + name);
-//            String email = currentUser.getEmail();
-////            yourEmail.setText(email);
-//            Log.d("ProStuff", "updateUI: " + email);
-//            String proPicUrl = currentUser.getPhotoUrl().toString();
-//            Log.d("ProStuff", "updateUI: " + proPicUrl);
-////            Picasso.with(this).load(proPicUrl).into(civ);
-//        }
-//
-//    }
-
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         i=datePicker.getDayOfMonth();
@@ -693,7 +669,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         switch (id) {
             case R.id.dropDown_login:
-                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this, profile.class));
                 break;
             case R.id.dropDown_aboutUs:
                 Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
