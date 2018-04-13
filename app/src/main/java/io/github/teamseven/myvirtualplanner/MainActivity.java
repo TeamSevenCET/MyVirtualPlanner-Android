@@ -641,21 +641,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    //adds subjects dynamically to drawer
-    public void addSub(String str) {
-        if(str.equals("") || str.equals(" "))
-        {
-            Toast.makeText(this, "Please Add Subject!", Toast.LENGTH_SHORT).show();
 
-        }
-        else{
-            mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-            mNavigationView.setNavigationItemSelectedListener(this);
-            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-            Menu menu = mNavigationView.getMenu();
-            menu.add(str);
-            Toast.makeText(this, "Subject Added!", Toast.LENGTH_SHORT).show();
-        }}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -690,7 +676,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         switch (id) {
             case R.id.add_sub:
-                this.openDialog();
+                startActivity(new Intent(this, listofsubjects.class));
                 break;
             case R.id.exam:
                 startActivity(new Intent(this, exams.class));

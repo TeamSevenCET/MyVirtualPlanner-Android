@@ -6,8 +6,8 @@
     <item android:title="@string/assignments"
         android:icon="@drawable/ic_assignment_black_24dp"
         android:id="@+id/ass"/>
-    <item android:title="@string/add_sub"
+    <item android:title="My Subjects"
         android:id="@+id/add_sub"
-        android:icon="@drawable/ic_add_black_24dp"/>
+        android:icon="@drawable/sub"/>
 
 </menu>
