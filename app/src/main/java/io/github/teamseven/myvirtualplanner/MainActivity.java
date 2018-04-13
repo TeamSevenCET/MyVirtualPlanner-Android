@@ -64,7 +64,7 @@ import java.util.TimeZone;
 import at.markushi.ui.CircleButton;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Subjects.SubjectsListener, DatePickerDialog.OnDateSetListener,
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener{
 
 
@@ -665,18 +665,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
-// Dialog box for subject addition to drawer
-    public void openDialog()
-    {
-        Subjects ob=new Subjects();
-        ob.show(getSupportFragmentManager(), "example dialog");
-    }
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.add_sub:
-                startActivity(new Intent(this, listofsubjects.class));
+                startActivity(new Intent(this, listofsubs.class));
                 break;
             case R.id.exam:
                 startActivity(new Intent(this, exams.class));
