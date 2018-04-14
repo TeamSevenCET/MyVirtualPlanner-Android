@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
     private Button mSignUp;
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -66,6 +67,16 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         mAuth = FirebaseAuth.getInstance();
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() != null) {
+                    Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
+                    mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(mainActivity);
+                }
+            }
+        };
         Button mBtn = (Button) findViewById(R.id.email_sign_in_button);
         mBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -98,6 +109,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthStateListener);
     }
 
     public void signInExistingUser (View v) {
