@@ -35,8 +35,7 @@ public class listofsubs extends FragmentActivity implements Subjects_lol.Subject
     private ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
     private ListView lvItems;
-
-    private DatabaseReference mDataBase;
+   private DatabaseReference mDataBase;
     private int count=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,21 +58,21 @@ public class listofsubs extends FragmentActivity implements Subjects_lol.Subject
 
     public void onAddItem(View v) {
         if(count!=10){
-        EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
-        String itemText = etNewItem.getText().toString();
-        if (itemText.equals("") || itemText.equals(" ")) {
-            Toast.makeText(this, "Please Enter A Subject!", Toast.LENGTH_SHORT).show();
-        } else {
+            EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
+            String itemText = etNewItem.getText().toString();
+            if (itemText.equals("") || itemText.equals(" ")) {
+                Toast.makeText(this, "Please Enter A Subject!", Toast.LENGTH_SHORT).show();
+            } else {
 
-            itemsAdapter.add(itemText);
-            etNewItem.setText("");
-            Toast.makeText(this, "Subject Name Added!", Toast.LENGTH_SHORT).show();
-            count++;
-            String sub = "Sub0" + Integer.toString(count);
-            mDataBase = FirebaseDatabase.getInstance().getReference().child(sub);
-            mDataBase.child(sub).setValue(itemText);
+                itemsAdapter.add(itemText);
+                etNewItem.setText("");
+                Toast.makeText(this, "Subject Name Added!", Toast.LENGTH_SHORT).show();
+                count++;
+                String sub = "Sub0" + Integer.toString(count);
+                mDataBase = FirebaseDatabase.getInstance().getReference().child(sub);
+                mDataBase.child(sub).setValue(itemText);
 
-        }
+            }
 
         }
         else{

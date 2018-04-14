@@ -61,38 +61,38 @@ public class Subjects_lol extends AppCompatDialogFragment implements DatePickerD
                     }
                 });
         subName = view.findViewById(R.id.textView8);
-       subName.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Log.d("circle", "onClick: Add btn clicked");
-               AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-               View lview = getLayoutInflater().inflate(R.layout.dialog_reminder, null);
-               final EditText lReminder = (EditText) lview.findViewById(R.id.textReminder);
-               lReminder.setText("Assignment:");
-               final DatePicker rem_date = (DatePicker) lview.findViewById(R.id.datePicker4);
-               final TimePicker rem_time = (TimePicker) lview.findViewById(R.id.timePicker);
-               mBuilder.setView(lview);
-               AlertDialog rem_dialog = mBuilder.create();
-               rem_dialog.show();
-               Button submit_date = (Button) lview.findViewById(R.id.submit_date);
-               submit_date.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View view) {
-                       int day = 0;
-                       int month = 0;
-                       int year = 0;
-                       int hour = 0;
-                       int min = 0;
-                       onDateSet(rem_date, day, month, year);
-                       onTimeSet(rem_time, hour, min);
-                       rem_text = lReminder.getText().toString().trim()+" ON  "+date+" AT "+time;
-                       subName.setText(rem_text);
-                       //algorithm for priority
-                   }
-               });
+        subName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("circle", "onClick: Add btn clicked");
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+                View lview = getLayoutInflater().inflate(R.layout.dialog_reminder, null);
+                final EditText lReminder = (EditText) lview.findViewById(R.id.textReminder);
+                lReminder.setText("Assignment:");
+                final DatePicker rem_date = (DatePicker) lview.findViewById(R.id.datePicker4);
+                final TimePicker rem_time = (TimePicker) lview.findViewById(R.id.timePicker);
+                mBuilder.setView(lview);
+                AlertDialog rem_dialog = mBuilder.create();
+                rem_dialog.show();
+                Button submit_date = (Button) lview.findViewById(R.id.submit_date);
+                submit_date.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int day = 0;
+                        int month = 0;
+                        int year = 0;
+                        int hour = 0;
+                        int min = 0;
+                        onDateSet(rem_date, day, month, year);
+                        onTimeSet(rem_time, hour, min);
+                        rem_text = lReminder.getText().toString().trim()+" ON  "+date+" AT "+time;
+                        subName.setText(rem_text);
+                        //algorithm for priority
+                    }
+                });
 
-           }
-       });
+            }
+        });
         subName1 = view.findViewById(R.id.textView9);
         subName1.setOnClickListener(new View.OnClickListener() {
             @Override
