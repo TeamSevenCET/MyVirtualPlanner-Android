@@ -672,7 +672,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         switch (id) {
             case R.id.add_sub:
-                startActivity(new Intent(this, listofsubs.class));
+                try {
+                    startActivity(new Intent(this, listofsubs.class));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.exam:
                 startActivity(new Intent(this, exams.class));
