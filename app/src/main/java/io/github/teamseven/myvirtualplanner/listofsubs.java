@@ -35,7 +35,7 @@ public class listofsubs extends FragmentActivity implements Subjects_lol.Subject
     private ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
     private ListView lvItems;
-
+   DatabaseReference mDataBase;
     private int count=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +68,9 @@ public class listofsubs extends FragmentActivity implements Subjects_lol.Subject
                 etNewItem.setText("");
                 Toast.makeText(this, "Subject Name Added!", Toast.LENGTH_SHORT).show();
                 count++;
-                // String sub = "Sub0" + Integer.toString(count);
-                //mDataBase = FirebaseDatabase.getInstance().getReference().child(sub);
-                //mDataBase.child(sub).setValue(itemText);
+                String sub = "Sub0" + Integer.toString(count);
+                mDataBase = FirebaseDatabase.getInstance().getReference().child(sub);
+                mDataBase.child(sub).setValue(itemText);
 
             }
 
