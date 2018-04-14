@@ -35,7 +35,7 @@ public class listofsubs extends FragmentActivity implements Subjects_lol.Subject
     private ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
     private ListView lvItems;
-   DatabaseReference mDataBase;
+   private DatabaseReference mDataBase;
     private int count=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
