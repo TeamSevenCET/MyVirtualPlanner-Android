@@ -64,7 +64,7 @@ import java.util.TimeZone;
 import at.markushi.ui.CircleButton;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Subjects.SubjectsListener, DatePickerDialog.OnDateSetListener,
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener{
 
 
@@ -641,21 +641,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    //adds subjects dynamically to drawer
-    public void addSub(String str) {
-        if(str.equals("") || str.equals(" "))
-        {
-            Toast.makeText(this, "Please Add Subject!", Toast.LENGTH_SHORT).show();
 
-        }
-        else{
-            mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-            mNavigationView.setNavigationItemSelectedListener(this);
-            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-            Menu menu = mNavigationView.getMenu();
-            menu.add(str);
-            Toast.makeText(this, "Subject Added!", Toast.LENGTH_SHORT).show();
-        }}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -679,18 +665,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
-// Dialog box for subject addition to drawer
-    public void openDialog()
-    {
-        Subjects ob=new Subjects();
-        ob.show(getSupportFragmentManager(), "example dialog");
-    }
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.add_sub:
-                this.openDialog();
+                startActivity(new Intent(this, listofsubs.class));
                 break;
             case R.id.exam:
                 startActivity(new Intent(this, exams.class));
