@@ -64,7 +64,7 @@ import java.util.TimeZone;
 import at.markushi.ui.CircleButton;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Subjects.SubjectsListener, DatePickerDialog.OnDateSetListener,
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener{
 
 
@@ -198,7 +198,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Calendar calendar = Calendar.getInstance();
                                         SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-yyyy");
                                         String strDate = mdformat.format(calendar.getTime());
-                                        String yolo = "<p>" +"<b>"+ yi_trim.substring(0, yi_trim.length() - 6)+"</b" + "</p>" + "<p>" +"<b>"+ yi_text.substring(0, 10) +"</b>"+ "</p>";
+                                        String yolo = "<b>"+"<font color=\"#ffffff\">"+yi_trim.substring(0, yi_trim.length() - 6)+"</font>"+ "</b>"
+                                                + "<p>"+"<font color=\"#ffffff\">" +yi_text.substring(0, 10) +"</font>"+ "</p>";
                                         if (yi_text.substring(0, 10).equals(strDate) && !time_comp(yi_trim.substring(yi_trim.length() - 5, yi_trim.length()))) {
                                             final int yi_remove_ind = Integer.parseInt(yi_removal.getKey());
                                             mIndex_db.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -221,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                         } else {
                                             tv.setText(Html.fromHtml(yolo));
-                                            tv.setBackgroundColor(Color.rgb(125, 224, 175));
+                                            tv.setBackgroundColor(Color.parseColor("#FEB63F"));
                                         }
                                     }
                                     }
@@ -449,12 +450,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //prioritising algorithm , DO NOT meddle if you dont understand
     public void prioritise(String d){
         final String d_in=d;
+        mIndex_db.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String x=dataSnapshot.getValue().toString();
+                    mDataBase.child("mIndex").setValue(Integer.toString(Integer.parseInt(x) + 1));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
      mIndex_db.addListenerForSingleValueEvent((new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             if (dataSnapshot.exists()) {
                 String x = dataSnapshot.getValue().toString();
-                mDataBase.child("mIndex").setValue(Integer.parseInt(x) + 1);
                 if (!x.equals("-1")) {
                     int y = Integer.parseInt(x);
                     Log.d("MyTest","Y outside loop: "+Integer.toString(y));
@@ -466,25 +479,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         yi.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                String z = dataSnapshot.getValue().toString();
-                                String z_date = z.substring(0, 10);
-                                Log.d("MyTest","Y inside inner: "+Integer.toString(y_ex));
-                                //call compare date method to return true if argument is more urgent else false
-                                if ((date_comp(d_in.substring(0, 10), z_date) || d_in.substring(0, 10).equals(z_date))) { //when d_in is earlier or equal
-                                    if(d_in.substring(0,10).equals(z_date)){
+                                if(dataSnapshot.exists()) {
+                                    String z = dataSnapshot.getValue().toString();
+                                    String z_date = z.substring(0, 10);
+                                    Log.d("MyTest", "Y inside inner: " + Integer.toString(y_ex));
+                                    //call compare date method to return true if argument is more urgent else false
+                                    if ((date_comp(d_in.substring(0, 10), z_date) || d_in.substring(0, 10).equals(z_date))) { //when d_in is earlier or equal
+                                        if (d_in.substring(0, 10).equals(z_date)) {
+                                            mDataBase.child(Integer.toString(y_in)).setValue(z);
+                                            mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
+                                        } else {
+                                            mDataBase.child(Integer.toString(y_in)).setValue(d_in);
+                                            System.exit(0);
+                                        }
+
+                                    } else {
                                         mDataBase.child(Integer.toString(y_in)).setValue(z);
                                         mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
-                                    }else {
-                                        mDataBase.child(Integer.toString(y_in)).setValue(d_in);
-                                        System.exit(0);
+
                                     }
-
-                                } else {
-                                    mDataBase.child(Integer.toString(y_in)).setValue(z);
-                                    mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
-
                                 }
-
                             }
 
                             @Override
@@ -641,21 +655,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    //adds subjects dynamically to drawer
-    public void addSub(String str) {
-        if(str.equals("") || str.equals(" "))
-        {
-            Toast.makeText(this, "Please Add Subject!", Toast.LENGTH_SHORT).show();
 
-        }
-        else{
-            mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-            mNavigationView.setNavigationItemSelectedListener(this);
-            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-            Menu menu = mNavigationView.getMenu();
-            menu.add(str);
-            Toast.makeText(this, "Subject Added!", Toast.LENGTH_SHORT).show();
-        }}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -679,18 +679,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
-// Dialog box for subject addition to drawer
-    public void openDialog()
-    {
-        Subjects ob=new Subjects();
-        ob.show(getSupportFragmentManager(), "example dialog");
-    }
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.add_sub:
-                this.openDialog();
+                try {
+                    startActivity(new Intent(this, listofsubs.class));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.exam:
                 startActivity(new Intent(this, exams.class));
