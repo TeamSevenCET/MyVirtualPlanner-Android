@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MyVirtualPlanner-Android.iml" filepath="$PROJECT_DIR$/MyVirtualPlanner-Android.iml" />
+      <module fileurl="file://C:\Users\RUDRA.LAPTOP-RDI7T2JU\Desktop\planner\MyVirtualPlanner-Android.iml" filepath="C:\Users\RUDRA.LAPTOP-RDI7T2JU\Desktop\planner\MyVirtualPlanner-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/planner.iml" filepath="$PROJECT_DIR$/planner.iml" />
     </modules>
   </component>
 </project>
