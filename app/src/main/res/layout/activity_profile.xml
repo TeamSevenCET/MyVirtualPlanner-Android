@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000"
+    android:background="@color/colorPrimaryDark"
     tools:context=".profile">
 <!--We can add a background pic instead of the background color. But have to find a good enough pic and spend some time color coordinating everything. There is a sample pic called the_library_by_andyhep.jpg so if you want to use it make some changes to color scheme. Or get another pic.-->
     <de.hdodenhof.circleimageview.CircleImageView
