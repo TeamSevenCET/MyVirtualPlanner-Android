@@ -20,5 +20,6 @@
     <color name="light_green">#50d050</color>
 
     <color name="dark_green">#008000</color>
+    <color name="tv_col">#50000000</color>
 
 </resources>
