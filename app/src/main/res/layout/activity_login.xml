@@ -77,6 +77,6 @@
         android:layout_marginTop="10dp"
         android:textColor="#D7DBDD"
         android:id="@+id/signUpBtn"
-        android:background="@color/colorPrimaryDark"
+        android:background="#00000000"
         />
 </RelativeLayout>
