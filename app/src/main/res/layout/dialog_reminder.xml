@@ -45,13 +45,15 @@
                 android:id="@+id/datePicker4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="8sp" />
+                android:layout_marginLeft="8sp"
+                android:headerBackground="#5009b1f4"/>
 
             <TimePicker
                 android:id="@+id/timePicker"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="7sp"
+                android:headerBackground="#5009b1f4"
                  />
             <Button
                 android:id="@+id/submit_date"
