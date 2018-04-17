@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference mIndex_db = firebaseDatabase.getReference().child("mIndex");  //to update mIndex value
     private String date=null,time=null,rem_text=null,notice_string=null; //date of rem, time of rem , notice in notice board
     private String user_token="";
+    private static int priori_control=0; //needed for prioritisation algo
     //Database always keeps mIndex value to know how many entires are there, which is used later by custom algortihms
     //mIndex is intialised at -1 when the user has no reminders. So when authorising for each user node maintain mIndex value
 
@@ -490,6 +491,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                             mDataBase.child(Integer.toString(y_ex)).setValue(d_in);
                                         } else {
                                             mDataBase.child(Integer.toString(y_in)).setValue(d_in);
+                                            try{
+                                                Thread.sleep(1500);
+                                            }catch(Exception e){
+                                            }
                                             System.exit(0);
                                         }
 

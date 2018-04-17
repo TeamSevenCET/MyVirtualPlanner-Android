@@ -52,10 +52,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@color/tv_col"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="It always seems impossible until its done."
+                android:text=""
                 android:textColor="#60F92672" />
 
             <TextView
@@ -63,10 +63,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@color/tv_col"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="There is no substitute for hard work"
+                android:text=""
                 android:textColor="#60F92672" />
 
             <TextView
@@ -74,10 +74,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@color/tv_col"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="No matter how you feel, get up, dress up, show up, and never give up"
+                android:text=""
                 android:textColor="#60F92672" />
 
             <TextView
@@ -85,20 +85,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@color/tv_col"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="A goal without a plan is just a wish."
+                android:text=""
                 android:textColor="#60F92672" />
             <TextView
                 android:id="@+id/mainscreen_tv6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@color/tv_col"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="You are worth more than just your grades"
+                android:text=""
                 android:textColor="#60F92672" />
 
             <TextView
@@ -106,10 +106,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@color/tv_col"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="The beautiful thing about learning is no one can take it away from you"
+                android:text=""
                 android:textColor="#60F92672" />
 
             <TextView
@@ -117,10 +117,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@color/tv_col"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="Kid, You will move mountains"
+                android:text=""
                 android:textColor="#60F92672" />
 
             <TextView
@@ -128,20 +128,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@color/tv_col"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="Unless someone like you cares a whole awful lot, nothing's going to get better"
+                android:text=""
                 android:textColor="#60F92672" />
             <TextView
                 android:id="@+id/mainscreen_tv2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@color/tv_col"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="Why fit in ? When you were born to stand out"
+                android:text=""
                 android:textColor="#60F92672" />
 
             <TextView
@@ -149,10 +149,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@color/tv_col"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="If you never did, your should. These things are fun. Fun is good"
+                android:text=""
                 android:textColor="#60F92672" />
 
         </LinearLayout>
