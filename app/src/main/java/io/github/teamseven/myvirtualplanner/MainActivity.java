@@ -2190,6 +2190,656 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mBuilder_attd.setView(lview_attd);
                 AlertDialog rem_dialog_attd=mBuilder_attd.create();
                 rem_dialog_attd.show();
+                sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_1");
+                sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            String x=dataSnapshot.getValue().toString();
+                            final String y=x;
+                            Log.d("MyTest6",x);
+                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+
+                            if(!x.equals("    ")){
+                                attd_tv1.setText(Html.fromHtml(x));
+                                attd_tv1.setBackgroundColor(Color.parseColor("#50000000"));
+                                attd_tv1.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        attd_tv1.setBackgroundColor(Color.parseColor("#63ff6c"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        num=Integer.toString(Integer.parseInt(num)+1);
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub1_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv1.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv8.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                    }
+                                });
+                                attd_tv1.setOnLongClickListener(new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View view) {
+                                        attd_tv1.setBackgroundColor(Color.parseColor("#f71976"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub1_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv1.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv1.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        return true;
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                sub2_db=firebaseDatabase.getReference().child(user_token).child("sub_2");
+                sub2_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            String x=dataSnapshot.getValue().toString();
+                            final String y=x;
+                            Log.d("MyTest6",x);
+                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+
+                            if(!x.equals("    ")){
+                                attd_tv2.setText(Html.fromHtml(x));
+                                attd_tv2.setBackgroundColor(Color.parseColor("#50000000"));
+                                attd_tv2.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        attd_tv2.setBackgroundColor(Color.parseColor("#63ff6c"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        num=Integer.toString(Integer.parseInt(num)+1);
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub2_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv2.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv2.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                    }
+                                });
+                                attd_tv2.setOnLongClickListener(new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View view) {
+                                        attd_tv2.setBackgroundColor(Color.parseColor("#f71976"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub2_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv2.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv2.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        return true;
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                sub3_db=firebaseDatabase.getReference().child(user_token).child("sub_3");
+                sub3_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            String x=dataSnapshot.getValue().toString();
+                            final String y=x;
+                            Log.d("MyTest6",x);
+                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+
+                            if(!x.equals("    ")){
+                                attd_tv3.setText(Html.fromHtml(x));
+                                attd_tv3.setBackgroundColor(Color.parseColor("#50000000"));
+                                attd_tv3.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        attd_tv3.setBackgroundColor(Color.parseColor("#63ff6c"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        num=Integer.toString(Integer.parseInt(num)+1);
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub3_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv3.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv3.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                    }
+                                });
+                                attd_tv3.setOnLongClickListener(new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View view) {
+                                        attd_tv1.setBackgroundColor(Color.parseColor("#f71976"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub3_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv3.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv3.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        return true;
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                sub4_db=firebaseDatabase.getReference().child(user_token).child("sub_4");
+                sub4_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            String x=dataSnapshot.getValue().toString();
+                            final String y=x;
+                            Log.d("MyTest6",x);
+                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+
+                            if(!x.equals("    ")){
+                                attd_tv4.setText(Html.fromHtml(x));
+                                attd_tv4.setBackgroundColor(Color.parseColor("#50000000"));
+                                attd_tv4.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        attd_tv4.setBackgroundColor(Color.parseColor("#63ff6c"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        num=Integer.toString(Integer.parseInt(num)+1);
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub4_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv4.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv4.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                    }
+                                });
+                                attd_tv4.setOnLongClickListener(new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View view) {
+                                        attd_tv4.setBackgroundColor(Color.parseColor("#f71976"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub4_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv4.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv4.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        return true;
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                sub5_db=firebaseDatabase.getReference().child(user_token).child("sub_5");
+                sub5_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            String x=dataSnapshot.getValue().toString();
+                            final String y=x;
+                            Log.d("MyTest6",x);
+                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+
+                            if(!x.equals("    ")){
+                                attd_tv5.setText(Html.fromHtml(x));
+                                attd_tv5.setBackgroundColor(Color.parseColor("#50000000"));
+                                attd_tv5.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        attd_tv5.setBackgroundColor(Color.parseColor("#63ff6c"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        num=Integer.toString(Integer.parseInt(num)+1);
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub5_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv5.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv5.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                    }
+                                });
+                                attd_tv5.setOnLongClickListener(new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View view) {
+                                        attd_tv5.setBackgroundColor(Color.parseColor("#f71976"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub5_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv5.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv5.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        return true;
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                sub6_db=firebaseDatabase.getReference().child(user_token).child("sub_6");
+                sub6_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            String x=dataSnapshot.getValue().toString();
+                            final String y=x;
+                            Log.d("MyTest6",x);
+                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+
+                            if(!x.equals("    ")){
+                                attd_tv6.setText(Html.fromHtml(x));
+                                attd_tv6.setBackgroundColor(Color.parseColor("#50000000"));
+                                attd_tv6.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        attd_tv6.setBackgroundColor(Color.parseColor("#63ff6c"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        num=Integer.toString(Integer.parseInt(num)+1);
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub6_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv6.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv6.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                    }
+                                });
+                                attd_tv6.setOnLongClickListener(new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View view) {
+                                        attd_tv6.setBackgroundColor(Color.parseColor("#f71976"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub6_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv6.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv6.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        return true;
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                sub7_db=firebaseDatabase.getReference().child(user_token).child("sub_7");
+                sub7_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            String x=dataSnapshot.getValue().toString();
+                            final String y=x;
+                            Log.d("MyTest6",x);
+                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+
+                            if(!x.equals("    ")){
+                                attd_tv7.setText(Html.fromHtml(x));
+                                attd_tv7.setBackgroundColor(Color.parseColor("#50000000"));
+                                attd_tv7.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        attd_tv7.setBackgroundColor(Color.parseColor("#63ff6c"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        num=Integer.toString(Integer.parseInt(num)+1);
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub7_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv7.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv7.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                    }
+                                });
+                                attd_tv7.setOnLongClickListener(new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View view) {
+                                        attd_tv7.setBackgroundColor(Color.parseColor("#f71976"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub7_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv7.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv7.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        return true;
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                sub8_db=firebaseDatabase.getReference().child(user_token).child("sub_8");
+                sub8_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            String x=dataSnapshot.getValue().toString();
+                            final String y=x;
+                            Log.d("MyTest6",x);
+                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+
+                            if(!x.equals("    ")){
+                                attd_tv8.setText(Html.fromHtml(x));
+                                attd_tv8.setBackgroundColor(Color.parseColor("#50000000"));
+                                attd_tv8.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        attd_tv8.setBackgroundColor(Color.parseColor("#63ff6c"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        num=Integer.toString(Integer.parseInt(num)+1);
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub8_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv8.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv8.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent+"%"));
+
+                                    }
+                                });
+                                attd_tv8.setOnLongClickListener(new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View view) {
+                                        attd_tv8.setBackgroundColor(Color.parseColor("#f71976"));
+                                        Pattern p=Pattern.compile("[0-9]");
+                                        Pattern r=Pattern.compile("/");
+                                        Matcher m=p.matcher(y);
+                                        Matcher n=r.matcher(y);
+                                        int index_string_num=0;
+                                        while(m.find()){
+                                            index_string_num=m.start();
+                                            break;
+                                        }
+                                        int index_bar=0;
+                                        while(n.find()){
+                                            index_bar=n.start();
+                                        }
+                                        String num=(y.substring(index_string_num,index_bar));
+                                        String dnum=(y.substring(index_bar+1,y.length()));
+                                        Log.d("MyTest7",(num));
+                                        Log.d("MyTest7",(dnum));
+                                        dnum=Integer.toString(Integer.parseInt(dnum)+1);
+                                        sub8_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        attd_tv8.setTextColor(Color.BLACK);
+                                        float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
+                                        attd_tv8.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent+"%"));
+                                        return true;
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                attd_submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(i5);
+
+                    }
+                });
         }
             mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
