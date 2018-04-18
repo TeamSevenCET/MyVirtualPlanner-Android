@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Attendance"
+        android:icon="@drawable/exam"
+        android:id="@+id/attendance"/>
     <item android:title="@string/exam"
         android:icon="@drawable/exam"
         android:id="@+id/exam"/>
@@ -9,5 +12,21 @@
     <item android:title="My Subjects"
         android:id="@+id/add_sub"
         android:icon="@drawable/sub"/>
+    <item android:title=""
+           android:id="@+id/sub1"/>
+    <item android:title=""
+        android:id="@+id/sub2"/>
+    <item android:title=""
+        android:id="@+id/sub3"/>
+    <item android:title=""
+        android:id="@+id/sub4"/>
+    <item android:title=""
+        android:id="@+id/sub5"/>
+    <item android:title=""
+        android:id="@+id/sub6"/>
+    <item android:title=""
+        android:id="@+id/sub7"/>
+    <item android:title=""
+        android:id="@+id/sub8"/>
 
 </menu>

@@ -20,7 +20,12 @@
         android:elevation="20sp"
         android:padding="10sp"
         android:text="@string/icon_notice"
+<<<<<<< HEAD
         android:textColor="@color/light_green"
+=======
+        android:textColor="#63ff2c"
+        android:textSize="15sp"
+>>>>>>> 83a06af767dd6bd2f729723f9fae386df8cd6473
         app:layout_constraintBottom_toTopOf="@+id/hguide_bottom_notice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
