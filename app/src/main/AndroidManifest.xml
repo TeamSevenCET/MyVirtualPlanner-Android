@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +33,7 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".profile" />
         <activity android:name=".listofsubs" />
-        <activity android:name=".Subjects_lol"></activity>
+        <activity android:name=".Subjects_lol" />
     </application>
 
 </manifest>
