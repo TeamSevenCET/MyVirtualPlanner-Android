@@ -2172,8 +2172,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
                 break;
-
-
+            case R.id.attendance:
+                AlertDialog.Builder mBuilder_attd=new AlertDialog.Builder(MainActivity.this);
+                View lview_attd = getLayoutInflater().inflate(R.layout.attendance,null);
+                final TextView attd_tv1=(TextView) lview_attd.findViewById(R.id.attd_tv1);
+                final TextView attd_tv2=(TextView) lview_attd.findViewById(R.id.attd_tv2);
+                final TextView attd_tv3=(TextView) lview_attd.findViewById(R.id.attd_tv3);
+                final TextView attd_tv4=(TextView) lview_attd.findViewById(R.id.attd_tv4);
+                final TextView attd_tv5=(TextView) lview_attd.findViewById(R.id.attd_tv5);
+                final TextView attd_tv6=(TextView) lview_attd.findViewById(R.id.attd_tv6);
+                final TextView attd_tv7=(TextView) lview_attd.findViewById(R.id.attd_tv7);
+                final TextView attd_tv8=(TextView) lview_attd.findViewById(R.id.attd_tv8);
+                final Button attd_submit=(Button) lview_attd.findViewById(R.id.attd_submit);
+                final TextView attd_date=(TextView) lview_attd.findViewById(R.id.attd_date);
+                String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+                attd_date.setText(currentDateTimeString);
+                mBuilder_attd.setView(lview_attd);
+                AlertDialog rem_dialog_attd=mBuilder_attd.create();
+                rem_dialog_attd.show();
         }
             mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
