@@ -917,12 +917,1262 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.sub1:
-                AlertDialog.Builder mBuilder_sub1=new AlertDialog.Builder(MainActivity.this);
-                final View lview_sub1 = getLayoutInflater().inflate(R.layout.subject_dialog,null);
-                mBuilder_sub1.setView(lview_sub1);
-                AlertDialog rem_dialog_sub1=mBuilder_sub1.create();
-                rem_dialog_sub1.show();
-                //final Button sub_add=(Button) lview.findViewById(R.id.sub_add);
+                AlertDialog.Builder mBuilder_sub=new AlertDialog.Builder(MainActivity.this);
+                final View lview_sub = getLayoutInflater().inflate(R.layout.subject_dialog,null);
+                mBuilder_sub.setView(lview_sub);
+                final AlertDialog rem_dialog_sub=mBuilder_sub.create();
+                rem_dialog_sub.show();
+                final Button sub_assgn=(Button) lview_sub.findViewById(R.id.sub_assgn);
+                final Button sub_test=(Button) lview_sub.findViewById(R.id.sub_test);
+                final Button sub_others=(Button) lview_sub.findViewById(R.id.sub_others);
+                sub_assgn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_1");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Assignment"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_test.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_1");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Test"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_others.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_1");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Stuff"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                break;
+            case R.id.sub2:
+                AlertDialog.Builder mBuilder_sub2=new AlertDialog.Builder(MainActivity.this);
+                final View lview_sub2 = getLayoutInflater().inflate(R.layout.subject_dialog,null);
+                mBuilder_sub2.setView(lview_sub2);
+                final AlertDialog rem_dialog_sub2=mBuilder_sub2.create();
+                rem_dialog_sub2.show();
+                final Button sub_assgn2=(Button) lview_sub2.findViewById(R.id.sub_assgn);
+                final Button sub_test2=(Button) lview_sub2.findViewById(R.id.sub_test);
+                final Button sub_others2=(Button) lview_sub2.findViewById(R.id.sub_others);
+                sub_assgn2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub2.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_2");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Assignment"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_test2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub2.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_2");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Test"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_others2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub2.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_2");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Stuff"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                break;
+            case R.id.sub3:
+                AlertDialog.Builder mBuilder_sub3=new AlertDialog.Builder(MainActivity.this);
+                final View lview_sub3 = getLayoutInflater().inflate(R.layout.subject_dialog,null);
+                mBuilder_sub3.setView(lview_sub3);
+                final AlertDialog rem_dialog_sub3=mBuilder_sub3.create();
+                rem_dialog_sub3.show();
+                final Button sub_assgn3=(Button) lview_sub3.findViewById(R.id.sub_assgn);
+                final Button sub_test3=(Button) lview_sub3.findViewById(R.id.sub_test);
+                final Button sub_others3=(Button) lview_sub3.findViewById(R.id.sub_others);
+                sub_assgn3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub3.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_3");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Assignment"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_test3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub3.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_3");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Test"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_others3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub3.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_3");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Stuff"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                break;
+            case R.id.sub4:
+                AlertDialog.Builder mBuilder_sub4=new AlertDialog.Builder(MainActivity.this);
+                final View lview_sub4 = getLayoutInflater().inflate(R.layout.subject_dialog,null);
+                mBuilder_sub4.setView(lview_sub4);
+                final AlertDialog rem_dialog_sub4=mBuilder_sub4.create();
+                rem_dialog_sub4.show();
+                final Button sub_assgn4=(Button) lview_sub4.findViewById(R.id.sub_assgn);
+                final Button sub_test4=(Button) lview_sub4.findViewById(R.id.sub_test);
+                final Button sub_others4=(Button) lview_sub4.findViewById(R.id.sub_others);
+                sub_assgn4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub4.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_4");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Assignment"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_test4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub4.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_4");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Test"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_others4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub4.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_4");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Stuff"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                break;
+            case R.id.sub5:
+                AlertDialog.Builder mBuilder_sub5=new AlertDialog.Builder(MainActivity.this);
+                final View lview_sub5 = getLayoutInflater().inflate(R.layout.subject_dialog,null);
+                mBuilder_sub5.setView(lview_sub5);
+                final AlertDialog rem_dialog_sub5=mBuilder_sub5.create();
+                rem_dialog_sub5.show();
+                final Button sub_assgn5=(Button) lview_sub5.findViewById(R.id.sub_assgn);
+                final Button sub_test5=(Button) lview_sub5.findViewById(R.id.sub_test);
+                final Button sub_others5=(Button) lview_sub5.findViewById(R.id.sub_others);
+                sub_assgn5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub5.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_5");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Assignment"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_test5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub5.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_5");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Test"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_others5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub5.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_5");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Stuff"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                break;
+            case R.id.sub6:
+                AlertDialog.Builder mBuilder_sub6=new AlertDialog.Builder(MainActivity.this);
+                final View lview_sub6 = getLayoutInflater().inflate(R.layout.subject_dialog,null);
+                mBuilder_sub6.setView(lview_sub6);
+                final AlertDialog rem_dialog_sub6=mBuilder_sub6.create();
+                rem_dialog_sub6.show();
+                final Button sub_assgn6=(Button) lview_sub6.findViewById(R.id.sub_assgn);
+                final Button sub_test6=(Button) lview_sub6.findViewById(R.id.sub_test);
+                final Button sub_others6=(Button) lview_sub6.findViewById(R.id.sub_others);
+                sub_assgn6.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub6.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_6");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Assignment"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_test6.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub6.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_6");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Test"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_others6.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub6.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_6");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Stuff"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                break;
+            case R.id.sub7:
+                AlertDialog.Builder mBuilder_sub7=new AlertDialog.Builder(MainActivity.this);
+                final View lview_sub7 = getLayoutInflater().inflate(R.layout.subject_dialog,null);
+                mBuilder_sub7.setView(lview_sub7);
+                final AlertDialog rem_dialog_sub7=mBuilder_sub7.create();
+                rem_dialog_sub7.show();
+                final Button sub_assgn7=(Button) lview_sub7.findViewById(R.id.sub_assgn);
+                final Button sub_test7=(Button) lview_sub7.findViewById(R.id.sub_test);
+                final Button sub_others7=(Button) lview_sub7.findViewById(R.id.sub_others);
+                sub_assgn7.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub7.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_7");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Assignment"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_test7.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub7.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_7");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Test"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_others7.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub7.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_7");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Stuff"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                break;
+            case R.id.sub8:
+                AlertDialog.Builder mBuilder_sub8=new AlertDialog.Builder(MainActivity.this);
+                final View lview_sub8 = getLayoutInflater().inflate(R.layout.subject_dialog,null);
+                mBuilder_sub8.setView(lview_sub8);
+                final AlertDialog rem_dialog_sub8=mBuilder_sub8.create();
+                rem_dialog_sub8.show();
+                final Button sub_assgn8=(Button) lview_sub8.findViewById(R.id.sub_assgn);
+                final Button sub_test8=(Button) lview_sub8.findViewById(R.id.sub_test);
+                final Button sub_others8=(Button) lview_sub8.findViewById(R.id.sub_others);
+                sub_assgn8.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub8.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_8");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Assignment"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_test8.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub8.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_8");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Test"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                sub_others8.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rem_dialog_sub8.dismiss();
+                        AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                        View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                        final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                        sub1_db=firebaseDatabase.getReference().child(user_token).child("sub_8");
+                        sub1_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String x=dataSnapshot.getValue().toString();
+                                    x=x.substring(0,x.length()-3);
+                                    lReminder.setText(Html.fromHtml(x+" : Stuff"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                        final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                        mBuilder.setView(lview);
+                        AlertDialog rem_dialog=mBuilder.create();
+                        rem_dialog.show();
+                        Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                        submit_date.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int day=0;
+                                int month=0;
+                                int year=0;
+                                int hour=0;
+                                int min=0;
+                                onDateSet(rem_date,day,month,year);
+                                onTimeSet(rem_time,hour,min);
+                                rem_text=lReminder.getText().toString().trim();
+                                //algorithm for priority
+                                prioritise(date+"_"+rem_text+"_"+time);
+                                Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i5);
+                            }
+
+                        });
+                    }
+                });
+                break;
+
 
         }
             mDrawerLayout.closeDrawer(GravityCompat.START);
