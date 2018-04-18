@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference sIndex_db = firebaseDatabase.getReference().child("sIndex"); //for subs
     private DatabaseReference sub1_db;
     private DatabaseReference sub2_db;
-    private DatabaseReference sub3_db;       //fuckloads for sub
+    private DatabaseReference sub3_db;
     private DatabaseReference sub4_db;
     private DatabaseReference sub5_db;
     private DatabaseReference sub6_db;
@@ -895,9 +895,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     }else{
                                         Toast.makeText(MainActivity.this,"Limit Reached",Toast.LENGTH_LONG).show();
                                     }
-                                    Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(i5);
+
                                 }
+                                Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(i5);
                             }
 
                             @Override
