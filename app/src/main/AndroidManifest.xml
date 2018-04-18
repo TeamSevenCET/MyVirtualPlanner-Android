@@ -31,7 +31,6 @@
             android:label="@string/title_activity_login" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".profile" />
-        <activity android:name=".listofsubs" />
         <activity android:name=".Subjects_lol"></activity>
     </application>
 
