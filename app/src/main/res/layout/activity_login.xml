@@ -79,4 +79,13 @@
         android:id="@+id/signUpBtn"
         android:background="@color/colorPrimaryDark"
         />
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        android:layout_marginTop="300sp"
+        style="?android:attr/progressBarStyleLarge"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
