@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09b1f4">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Add a new subject"
+        android:textColor="#000"
+        android:textSize="25sp"
+
+        />
+
+    <EditText
+        android:id="@+id/sub_input_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:textColor="#000"
+        android:inputType="textPersonName"
+        android:text="Subject"
+        />
+
+    <Button
+        android:id="@+id/sub_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="20sp"
+        android:layout_marginTop="8dp"
+        android:text="ADD"
+        android:background="#f71976"
+        />
+</LinearLayout>

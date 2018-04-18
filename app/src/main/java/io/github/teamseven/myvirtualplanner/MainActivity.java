@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -76,12 +77,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout; // Layout object for the navigation menu
     private NavigationView mNavigationView; // The navigation view
     private TextView notice; // The notice text view to show what important notifs we have
-    private CircleButton mAddBtn; // Button to add new reminders
-    private int mIndex=-1; //works as counter and flag for database todo : remove if not necessary
+    private CircleButton mAddBtn; // Button to add new reminders//works as counter and flag for database todo : remove if not necessary
     private DatabaseReference mIndex_db = firebaseDatabase.getReference().child("mIndex");  //to update mIndex value
+    private DatabaseReference sIndex_db = firebaseDatabase.getReference().child("sIndex"); //for subs
+    private DatabaseReference sub1_db;
+    private DatabaseReference sub2_db;
+    private DatabaseReference sub3_db;       //fuckloads for sub
+    private DatabaseReference sub4_db;
+    private DatabaseReference sub5_db;
+    private DatabaseReference sub6_db;
+    private DatabaseReference sub7_db;
+    private DatabaseReference sub8_db;
+    private Menu menu;
     private String date=null,time=null,rem_text=null,notice_string=null; //date of rem, time of rem , notice in notice board
     private String user_token="";
-    private static int priori_control=0; //needed for prioritisation algo
+
     //Database always keeps mIndex value to know how many entires are there, which is used later by custom algortihms
     //mIndex is intialised at -1 when the user has no reminders. So when authorising for each user node maintain mIndex value
 
@@ -127,8 +137,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     mDataBase.setValue(user_token_inner);
                     mDataBase=firebaseDatabase.getReference().child(user_token_inner);
                     mDataBase.setValue("mIndex");
+                    mDataBase.push().setValue("sub_1");
+                    sub1_db=firebaseDatabase.getReference().child(user_token_inner).child("sub_1");
+                    sub1_db.setValue("    ");
+                    mDataBase.push().setValue("sub_2");
+                    sub2_db=firebaseDatabase.getReference().child(user_token_inner).child("sub_2");
+                    sub2_db.setValue("    ");
+                    mDataBase.push().setValue("sub_3");
+                    sub3_db=firebaseDatabase.getReference().child(user_token_inner).child("sub_3");
+                    sub3_db.setValue("    ");
+                    mDataBase.push().setValue("sub_4");
+                    sub4_db=firebaseDatabase.getReference().child(user_token_inner).child("sub_4");
+                    sub4_db.setValue("    ");
+                    mDataBase.push().setValue("sub_5");
+                    sub5_db=firebaseDatabase.getReference().child(user_token_inner).child("sub_5");
+                    sub5_db.setValue("    ");
+                    mDataBase.push().setValue("sub_6");
+                    sub6_db=firebaseDatabase.getReference().child(user_token_inner).child("sub_6");
+                    sub6_db.setValue("    ");
+                    mDataBase.push().setValue("sub_7");
+                    sub7_db=firebaseDatabase.getReference().child(user_token_inner).child("sub_7");
+                    sub7_db.setValue("    ");
+                    mDataBase.push().setValue("sub_8");
+                    sub8_db=firebaseDatabase.getReference().child(user_token_inner).child("sub_8");
+                    sub8_db.setValue("    ");
                     mIndex_db=firebaseDatabase.getReference().child(user_token_inner).child("mIndex");
                     mIndex_db.setValue("-1");
+                    mDataBase.push().setValue("sIndex");
+                    sIndex_db=firebaseDatabase.getReference().child(user_token_inner).child("sIndex");
+                    sIndex_db.setValue("0");
+
                 }
             }
 
@@ -250,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         // TODO: check current date, remove the data with key = mIndex( bottom - most urgent)
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         setContentView(R.layout.navigation_drawer);
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
@@ -264,6 +302,140 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         mDrawerLayout.removeDrawerListener(toggle);
+        menu=mNavigationView.getMenu();
+        final MenuItem sub1=menu.findItem(R.id.sub1);
+        DatabaseReference sub_local;
+        sub_local=firebaseDatabase.getReference().child(user_token).child("sub_1");
+            sub_local.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        String x=dataSnapshot.getValue().toString();
+                        sub1.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        final MenuItem sub2=menu.findItem(R.id.sub2);
+        sub_local=firebaseDatabase.getReference().child(user_token).child("sub_2");
+        sub_local.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String x=dataSnapshot.getValue().toString();
+                    sub2.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        final MenuItem sub3=menu.findItem(R.id.sub3);
+        sub_local=firebaseDatabase.getReference().child(user_token).child("sub_3");
+        sub_local.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String x=dataSnapshot.getValue().toString();
+                    sub3.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        final MenuItem sub4=menu.findItem(R.id.sub4);
+        sub_local=firebaseDatabase.getReference().child(user_token).child("sub_4");
+        sub_local.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String x=dataSnapshot.getValue().toString();
+                    sub4.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        final MenuItem sub5=menu.findItem(R.id.sub5);
+        sub_local=firebaseDatabase.getReference().child(user_token).child("sub_5");
+        sub_local.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String x=dataSnapshot.getValue().toString();
+                    sub5.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        final MenuItem sub6=menu.findItem(R.id.sub6);
+        sub_local=firebaseDatabase.getReference().child(user_token).child("sub_6");
+        sub_local.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String x=dataSnapshot.getValue().toString();
+                    sub6.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        final MenuItem sub7=menu.findItem(R.id.sub7);
+        sub_local=firebaseDatabase.getReference().child(user_token).child("sub_7");
+        sub_local.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String x=dataSnapshot.getValue().toString();
+                    sub7.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        final MenuItem sub8=menu.findItem(R.id.sub8);
+        sub_local=firebaseDatabase.getReference().child(user_token).child("sub_8");
+        sub_local.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String x=dataSnapshot.getValue().toString();
+                    sub8.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
         // Compatibility mode and toolbar-actionbar color
@@ -297,7 +469,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         notice_string = x.substring(11, x.length() - 6);
                                         char icon = notice.getText().charAt(0);
                                         String ic = Character.toString(icon);
-                                        String s = ic + "<font color=##FD971F><b> Important Notice</b></font><p>" + notice_string + "</p>";
+                                        String s = ic + "<font color=##FD971F><b> Important Notice</b></font><p>"+ "<br/>"+notice_string + "</p>";
                                         notice.setText(Html.fromHtml(s));
                                     }
                                 }
@@ -691,7 +863,51 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         switch (id) {
             case R.id.add_sub:
-                startActivity(new Intent(this, listofsubs.class));
+                ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                final View lview = getLayoutInflater().inflate(R.layout.subject_input,null);
+                mBuilder.setView(lview);
+                AlertDialog rem_dialog=mBuilder.create();
+                rem_dialog.show();
+                final Button sub_add=(Button) lview.findViewById(R.id.sub_add);
+                sub_add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("MyTest5","eneters");
+                        TextView sub_input_text=(TextView)lview.findViewById(R.id.sub_input_text);
+                        final String x_sub=sub_input_text.getText().toString().trim();
+                        Log.d("MyTest5",x_sub);
+                        sIndex_db=firebaseDatabase.getReference().child(user_token).child("sIndex");
+                        sIndex_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    Log.d("MyTest5","enters");
+                                    int x=Integer.parseInt(dataSnapshot.getValue().toString());
+                                    int y=x+1;
+                                    if(y<=8) {
+                                        Log.d("MyTest5",Integer.toString(y));
+                                        String sub = "sub" + "_" + Integer.toString(y);
+                                        DatabaseReference sub_local = firebaseDatabase.getReference().child(user_token).child(sub);
+                                        sub_local.setValue(x_sub+"0/0");
+                                        sIndex_db.setValue(y);
+                                    }else{
+                                        Toast.makeText(MainActivity.this,"Limit Reached",Toast.LENGTH_LONG).show();
+                                    }
+                                    Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(i5);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+                });
                 break;
             case R.id.exam:
                 startActivity(new Intent(this, exams.class));
@@ -700,6 +916,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                TODO : Logic for assignment lets remove this altogether because it seems like a lot more work
                 Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.sub1:
+                AlertDialog.Builder mBuilder_sub1=new AlertDialog.Builder(MainActivity.this);
+                final View lview_sub1 = getLayoutInflater().inflate(R.layout.subject_dialog,null);
+                mBuilder_sub1.setView(lview_sub1);
+                AlertDialog rem_dialog_sub1=mBuilder_sub1.create();
+                rem_dialog_sub1.show();
+                //final Button sub_add=(Button) lview.findViewById(R.id.sub_add);
+
         }
             mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -719,4 +943,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
+
 }
+
