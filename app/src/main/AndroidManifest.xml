@@ -31,7 +31,7 @@
             android:label="@string/title_activity_login" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".profile" />
-        <activity android:name=".Subjects_lol"></activity>
+        <activity android:name=".initial_walkThrough" />
     </application>
 
 </manifest>

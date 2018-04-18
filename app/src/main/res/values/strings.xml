@@ -48,4 +48,7 @@
     <string name="prompt_password_again">Confirm Password</string>
     <string name="profile">Profile</string>
     <string name="signUpAccount">Do not have an account? Create one!</string>
+    <string name="desc_01">Using this app you can concentrate more on studies. With an emphasis on students our app is built on the principle of time is money.</string>
+    <string name="desc_02">Our app uses an intelligent algorithm to determine what is important at the moment and suggests you on what to do next. With this feature you will always be on top of whatever this college life throws at you.</string>
+    <string name="desc_03">With this app you can not only give more time to your studies but you can actually enjoy your college life. A moment that is saved from studying can now be used to enjoy, go out with friends, or play video games because you lack any. Choice is yours.</string>
 </resources>
