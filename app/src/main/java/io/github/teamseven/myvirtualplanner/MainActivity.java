@@ -311,7 +311,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     String x=dataSnapshot.getValue().toString();
-                    sub1.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                    Pattern p=Pattern.compile("[0-9]");
+                    Matcher m=p.matcher(x);
+                    int index_string_num=0;
+                    while(m.find()){
+                        index_string_num=m.start();
+                        break;
+                    }
+                    sub1.setTitle(Html.fromHtml(x.substring(0,index_string_num)));
                 }
             }
 
@@ -328,7 +335,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     String x=dataSnapshot.getValue().toString();
-                    sub2.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                    Pattern p=Pattern.compile("[0-9]");
+                    Matcher m=p.matcher(x);
+                    int index_string_num=0;
+                    while(m.find()){
+                        index_string_num=m.start();
+                        break;
+                    }
+                    sub2.setTitle(Html.fromHtml(x.substring(0,index_string_num)));
                 }
             }
 
@@ -344,7 +358,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     String x=dataSnapshot.getValue().toString();
-                    sub3.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                    Pattern p=Pattern.compile("[0-9]");
+                    Matcher m=p.matcher(x);
+                    int index_string_num=0;
+                    while(m.find()){
+                        index_string_num=m.start();
+                        break;
+                    }
+                    sub3.setTitle(Html.fromHtml(x.substring(0,index_string_num)));
                 }
             }
 
@@ -360,7 +381,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     String x=dataSnapshot.getValue().toString();
-                    sub4.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                    Pattern p=Pattern.compile("[0-9]");
+                    Matcher m=p.matcher(x);
+                    int index_string_num=0;
+                    while(m.find()){
+                        index_string_num=m.start();
+                        break;
+                    }
+                    sub4.setTitle(Html.fromHtml(x.substring(0,index_string_num)));
                 }
             }
 
@@ -376,7 +404,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     String x=dataSnapshot.getValue().toString();
-                    sub5.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                    Pattern p=Pattern.compile("[0-9]");
+                    Matcher m=p.matcher(x);
+                    int index_string_num=0;
+                    while(m.find()){
+                        index_string_num=m.start();
+                        break;
+                    }
+                    sub5.setTitle(Html.fromHtml(x.substring(0,index_string_num)));
                 }
             }
 
@@ -392,7 +427,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     String x=dataSnapshot.getValue().toString();
-                    sub6.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                    Pattern p=Pattern.compile("[0-9]");
+                    Matcher m=p.matcher(x);
+                    int index_string_num=0;
+                    while(m.find()){
+                        index_string_num=m.start();
+                        break;
+                    }
+                    sub6.setTitle(Html.fromHtml(x.substring(0,index_string_num)));
                 }
             }
 
@@ -408,7 +450,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     String x=dataSnapshot.getValue().toString();
-                    sub7.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                    Pattern p=Pattern.compile("[0-9]");
+                    Matcher m=p.matcher(x);
+                    int index_string_num=0;
+                    while(m.find()){
+                        index_string_num=m.start();
+                        break;
+                    }
+                    sub7.setTitle(Html.fromHtml(x.substring(0,index_string_num)));
                 }
             }
 
@@ -424,7 +473,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     String x=dataSnapshot.getValue().toString();
-                    sub8.setTitle(Html.fromHtml(x.substring(0,x.length()-3)));
+                    Pattern p=Pattern.compile("[0-9]");
+                    Matcher m=p.matcher(x);
+                    int index_string_num=0;
+                    while(m.find()){
+                        index_string_num=m.start();
+                        break;
+                    }
+                    sub8.setTitle(Html.fromHtml(x.substring(0,index_string_num)));
                 }
             }
 
@@ -2199,9 +2255,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             String x=dataSnapshot.getValue().toString();
                             final String y=x;
                             Log.d("MyTest6",x);
-                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+                            Pattern p=Pattern.compile("[0-9]");
+                            Pattern r=Pattern.compile("/");
+                            Matcher m=p.matcher(y);
+                            Matcher n=r.matcher(y);
+                            int index_string_num=0;
+                            while(m.find()){
+                                index_string_num=m.start();
+                                break;
+                            }
+                            int index_bar=0;
+                            while(n.find()){
+                                index_bar=n.start();
+                            }
+                            String x_x=x;
+                            x="<b>"+x.substring(0,index_string_num)+" "+x.substring(index_string_num,x.length())+"</b>";
 
-                            if(!x.equals("    ")){
+
+                            if(!x_x.equals("    ")){
                                 attd_tv1.setText(Html.fromHtml(x));
                                 attd_tv1.setBackgroundColor(Color.parseColor("#50000000"));
                                 attd_tv1.setOnClickListener(new View.OnClickListener() {
@@ -2227,10 +2298,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(dnum));
                                         num=Integer.toString(Integer.parseInt(num)+1);
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub1_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub1_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv1.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv8.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv1.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                     }
                                 });
                                 attd_tv1.setOnLongClickListener(new View.OnLongClickListener() {
@@ -2255,10 +2326,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(num));
                                         Log.d("MyTest7",(dnum));
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub1_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub1_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv1.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv1.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv1.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                         return true;
                                     }
                                 });
@@ -2279,9 +2350,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             String x=dataSnapshot.getValue().toString();
                             final String y=x;
                             Log.d("MyTest6",x);
-                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+                            Pattern p=Pattern.compile("[0-9]");
+                            Pattern r=Pattern.compile("/");
+                            Matcher m=p.matcher(y);
+                            Matcher n=r.matcher(y);
+                            int index_string_num=0;
+                            while(m.find()){
+                                index_string_num=m.start();
+                                break;
+                            }
+                            int index_bar=0;
+                            while(n.find()){
+                                index_bar=n.start();
+                            }
+                            String x_x=x;
+                            x="<b>"+x.substring(0,index_string_num)+" "+x.substring(index_string_num,x.length())+"</b>";
 
-                            if(!x.equals("    ")){
+
+                            if(!x_x.equals("    ")){
                                 attd_tv2.setText(Html.fromHtml(x));
                                 attd_tv2.setBackgroundColor(Color.parseColor("#50000000"));
                                 attd_tv2.setOnClickListener(new View.OnClickListener() {
@@ -2307,10 +2393,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(dnum));
                                         num=Integer.toString(Integer.parseInt(num)+1);
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub2_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub2_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv2.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv2.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv2.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                     }
                                 });
                                 attd_tv2.setOnLongClickListener(new View.OnLongClickListener() {
@@ -2335,10 +2421,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(num));
                                         Log.d("MyTest7",(dnum));
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub2_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub2_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv2.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv2.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv2.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                         return true;
                                     }
                                 });
@@ -2359,9 +2445,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             String x=dataSnapshot.getValue().toString();
                             final String y=x;
                             Log.d("MyTest6",x);
-                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+                            Pattern p=Pattern.compile("[0-9]");
+                            Pattern r=Pattern.compile("/");
+                            Matcher m=p.matcher(y);
+                            Matcher n=r.matcher(y);
+                            int index_string_num=0;
+                            while(m.find()){
+                                index_string_num=m.start();
+                                break;
+                            }
+                            int index_bar=0;
+                            while(n.find()){
+                                index_bar=n.start();
+                            }
+                            String x_x=x;
+                            x="<b>"+x.substring(0,index_string_num)+" "+x.substring(index_string_num,x.length())+"</b>";
 
-                            if(!x.equals("    ")){
+
+                            if(!x_x.equals("    ")){
                                 attd_tv3.setText(Html.fromHtml(x));
                                 attd_tv3.setBackgroundColor(Color.parseColor("#50000000"));
                                 attd_tv3.setOnClickListener(new View.OnClickListener() {
@@ -2390,7 +2491,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         sub3_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
                                         attd_tv3.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv3.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv3.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                     }
                                 });
                                 attd_tv3.setOnLongClickListener(new View.OnLongClickListener() {
@@ -2418,7 +2519,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         sub3_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
                                         attd_tv3.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv3.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv3.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                         return true;
                                     }
                                 });
@@ -2439,9 +2540,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             String x=dataSnapshot.getValue().toString();
                             final String y=x;
                             Log.d("MyTest6",x);
-                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+                            Pattern p=Pattern.compile("[0-9]");
+                            Pattern r=Pattern.compile("/");
+                            Matcher m=p.matcher(y);
+                            Matcher n=r.matcher(y);
+                            int index_string_num=0;
+                            while(m.find()){
+                                index_string_num=m.start();
+                                break;
+                            }
+                            int index_bar=0;
+                            while(n.find()){
+                                index_bar=n.start();
+                            }
+                            String x_x=x;
+                            x="<b>"+x.substring(0,index_string_num)+" "+x.substring(index_string_num,x.length())+"</b>";
 
-                            if(!x.equals("    ")){
+
+                            if(!x_x.equals("    ")){
                                 attd_tv4.setText(Html.fromHtml(x));
                                 attd_tv4.setBackgroundColor(Color.parseColor("#50000000"));
                                 attd_tv4.setOnClickListener(new View.OnClickListener() {
@@ -2467,10 +2583,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(dnum));
                                         num=Integer.toString(Integer.parseInt(num)+1);
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub4_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub4_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv4.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv4.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv4.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                     }
                                 });
                                 attd_tv4.setOnLongClickListener(new View.OnLongClickListener() {
@@ -2495,10 +2611,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(num));
                                         Log.d("MyTest7",(dnum));
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub4_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub4_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv4.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv4.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv4.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                         return true;
                                     }
                                 });
@@ -2519,9 +2635,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             String x=dataSnapshot.getValue().toString();
                             final String y=x;
                             Log.d("MyTest6",x);
-                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+                            Pattern p=Pattern.compile("[0-9]");
+                            Pattern r=Pattern.compile("/");
+                            Matcher m=p.matcher(y);
+                            Matcher n=r.matcher(y);
+                            int index_string_num=0;
+                            while(m.find()){
+                                index_string_num=m.start();
+                                break;
+                            }
+                            int index_bar=0;
+                            while(n.find()){
+                                index_bar=n.start();
+                            }
+                            String x_x=x;
+                            x="<b>"+x.substring(0,index_string_num)+" "+x.substring(index_string_num,x.length())+"</b>";
 
-                            if(!x.equals("    ")){
+
+                            if(!x_x.equals("    ")){
                                 attd_tv5.setText(Html.fromHtml(x));
                                 attd_tv5.setBackgroundColor(Color.parseColor("#50000000"));
                                 attd_tv5.setOnClickListener(new View.OnClickListener() {
@@ -2547,10 +2678,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(dnum));
                                         num=Integer.toString(Integer.parseInt(num)+1);
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub5_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub5_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv5.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv5.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv5.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                     }
                                 });
                                 attd_tv5.setOnLongClickListener(new View.OnLongClickListener() {
@@ -2575,10 +2706,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(num));
                                         Log.d("MyTest7",(dnum));
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub5_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub5_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv5.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv5.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv5.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                         return true;
                                     }
                                 });
@@ -2600,9 +2731,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             String x=dataSnapshot.getValue().toString();
                             final String y=x;
                             Log.d("MyTest6",x);
-                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+                            Pattern p=Pattern.compile("[0-9]");
+                            Pattern r=Pattern.compile("/");
+                            Matcher m=p.matcher(y);
+                            Matcher n=r.matcher(y);
+                            int index_string_num=0;
+                            while(m.find()){
+                                index_string_num=m.start();
+                                break;
+                            }
+                            int index_bar=0;
+                            while(n.find()){
+                                index_bar=n.start();
+                            }
+                            String x_x=x;
+                            x="<b>"+x.substring(0,index_string_num)+" "+x.substring(index_string_num,x.length())+"</b>";
 
-                            if(!x.equals("    ")){
+
+                            if(!x_x.equals("    ")){
                                 attd_tv6.setText(Html.fromHtml(x));
                                 attd_tv6.setBackgroundColor(Color.parseColor("#50000000"));
                                 attd_tv6.setOnClickListener(new View.OnClickListener() {
@@ -2628,10 +2774,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(dnum));
                                         num=Integer.toString(Integer.parseInt(num)+1);
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub6_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub6_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv6.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv6.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv6.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                     }
                                 });
                                 attd_tv6.setOnLongClickListener(new View.OnLongClickListener() {
@@ -2656,10 +2802,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(num));
                                         Log.d("MyTest7",(dnum));
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub6_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub6_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv6.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv6.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv6.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                         return true;
                                     }
                                 });
@@ -2680,9 +2826,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             String x=dataSnapshot.getValue().toString();
                             final String y=x;
                             Log.d("MyTest6",x);
-                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+                            Pattern p=Pattern.compile("[0-9]");
+                            Pattern r=Pattern.compile("/");
+                            Matcher m=p.matcher(y);
+                            Matcher n=r.matcher(y);
+                            int index_string_num=0;
+                            while(m.find()){
+                                index_string_num=m.start();
+                                break;
+                            }
+                            int index_bar=0;
+                            while(n.find()){
+                                index_bar=n.start();
+                            }
+                            String x_x=x;
+                            x="<b>"+x.substring(0,index_string_num)+" "+x.substring(index_string_num,x.length())+"</b>";
 
-                            if(!x.equals("    ")){
+
+                            if(!x_x.equals("    ")){
                                 attd_tv7.setText(Html.fromHtml(x));
                                 attd_tv7.setBackgroundColor(Color.parseColor("#50000000"));
                                 attd_tv7.setOnClickListener(new View.OnClickListener() {
@@ -2708,10 +2869,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(dnum));
                                         num=Integer.toString(Integer.parseInt(num)+1);
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub7_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub7_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv7.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv7.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv7.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                     }
                                 });
                                 attd_tv7.setOnLongClickListener(new View.OnLongClickListener() {
@@ -2736,10 +2897,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(num));
                                         Log.d("MyTest7",(dnum));
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub7_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub7_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv7.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv7.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
+                                        attd_tv7.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent)+"%");
                                         return true;
                                     }
                                 });
@@ -2760,9 +2921,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             String x=dataSnapshot.getValue().toString();
                             final String y=x;
                             Log.d("MyTest6",x);
-                            x="<b>"+x.substring(0,x.length()-3)+" "+x.substring(x.length()-3,x.length())+"</b>";
+                            Pattern p=Pattern.compile("[0-9]");
+                            Pattern r=Pattern.compile("/");
+                            Matcher m=p.matcher(y);
+                            Matcher n=r.matcher(y);
+                            int index_string_num=0;
+                            while(m.find()){
+                                index_string_num=m.start();
+                                break;
+                            }
+                            int index_bar=0;
+                            while(n.find()){
+                                index_bar=n.start();
+                            }
+                            String x_x=x;
+                            x="<b>"+x.substring(0,index_string_num)+" "+x.substring(index_string_num,x.length())+"</b>";
 
-                            if(!x.equals("    ")){
+                            if(!x_x.equals("    ")){
                                 attd_tv8.setText(Html.fromHtml(x));
                                 attd_tv8.setBackgroundColor(Color.parseColor("#50000000"));
                                 attd_tv8.setOnClickListener(new View.OnClickListener() {
@@ -2788,10 +2963,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(dnum));
                                         num=Integer.toString(Integer.parseInt(num)+1);
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub8_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub8_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv8.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv8.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent+"%"));
+                                        attd_tv8.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent+"%"));
 
                                     }
                                 });
@@ -2817,10 +2992,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         Log.d("MyTest7",(num));
                                         Log.d("MyTest7",(dnum));
                                         dnum=Integer.toString(Integer.parseInt(dnum)+1);
-                                        sub8_db.setValue(y.substring(0,y.length()-3)+num+"/"+dnum);
+                                        sub8_db.setValue(y.substring(0,index_string_num)+num+"/"+dnum);
                                         attd_tv8.setTextColor(Color.BLACK);
                                         float percent=Float.parseFloat(num)/Float.parseFloat(dnum)*100;
-                                        attd_tv8.setText(y.substring(0,y.length()-3)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent+"%"));
+                                        attd_tv8.setText(y.substring(0,index_string_num)+" "+num+"/"+dnum+"    "+String.format("%.2f",percent+"%"));
                                         return true;
                                     }
                                 });
