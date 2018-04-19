@@ -145,6 +145,7 @@ public class SignUpActivity extends AppCompatActivity {
         new AlertDialog.Builder(this ).setTitle("Oops!").setMessage(message).setPositiveButton(android.R.string.ok, null).setIcon(android.R.drawable.ic_dialog_alert).show();
     }
     private void updateUI() {
+
         spinner.setVisibility(View.VISIBLE);
     }
 }

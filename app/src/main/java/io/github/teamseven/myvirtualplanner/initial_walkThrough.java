@@ -1,5 +1,6 @@
 package io.github.teamseven.myvirtualplanner;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,26 @@ public class initial_walkThrough extends AppCompatActivity {
 
         mNextBtn = (Button) findViewById(R.id.nextBtn);
         mPrevBtn = (Button) findViewById(R.id.prevBtn);
+
+        mNextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCurrentPage != mDots.length - 1) {
+                    mViewPager.setCurrentItem(mCurrentPage + 1);
+                } else if (mCurrentPage == mDots.length - 1) {
+                    Intent login = new Intent(initial_walkThrough.this, LoginActivity.class);
+                    login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(login);
+                }
+            }
+        });
+
+        mPrevBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(mCurrentPage - 1);
+            }
+        });
 
         addDotIndicator(0);
 
@@ -69,6 +90,7 @@ public class initial_walkThrough extends AppCompatActivity {
                 mPrevBtn.setEnabled(false);
                 mPrevBtn.setVisibility(View.INVISIBLE);
                 mNextBtn.setVisibility(View.VISIBLE);
+                mNextBtn.setText("Next");
             } else if (position == mDots.length - 1) {
                 mNextBtn.setEnabled(true);
                 mPrevBtn.setEnabled(true);
@@ -80,6 +102,7 @@ public class initial_walkThrough extends AppCompatActivity {
                 mPrevBtn.setEnabled(true);
                 mPrevBtn.setVisibility(View.VISIBLE);
                 mNextBtn.setVisibility(View.VISIBLE);
+                mNextBtn.setText("Next");
             }
         }
 
