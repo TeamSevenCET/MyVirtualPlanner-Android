@@ -1,49 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!--TODO : This is not complete by any means. A lot more work needs to be done. Implement all the changes.-->
-<!--
-    <item android:title="@string/subjects"
-        android:id="@+id/a"
-        >
-        <menu>
-            <item android:title="@string/subject"
-                android:id="@+id/sub_1"
-                android:icon="@drawable/sub"
-                />
-            <item android:title="@string/subject"
-                android:id="@+id/sub_2"
-                android:icon="@drawable/sub"
-                />
-            <item android:title="@string/subject"
-                android:id="@+id/sub_3"
-                android:icon="@drawable/sub"
-                />
-            <item android:title="@string/subject"
-                android:id="@+id/sub_4"
-                android:icon="@drawable/sub"
-                />
-            <item android:title="@string/subject"
-                android:id="@+id/sub_5"
-                android:icon="@drawable/sub"
-                />
-
-        </menu>
-    </item>-->
+    <item android:title="Poll"
+        android:id="@+id/poll"/>
+    <item android:title="Attendance"
+        android:icon="@drawable/ic_timer"
+        android:id="@+id/attendance"/>
     <item android:title="@string/exam"
         android:icon="@drawable/exam"
         android:id="@+id/exam"/>
     <item android:title="@string/assignments"
         android:icon="@drawable/ic_assignment_black_24dp"
         android:id="@+id/ass"/>
-    <item android:title="@string/personal"
-        android:icon="@drawable/ic_person_black_24dp"
-        android:id="@+id/personal"/>
-    <item android:title="@string/misc"
-        android:icon="@drawable/ic_weekend_black_24dp"
-        android:id="@+id/misc"/>
-    <item android:title="@string/add_sub"
+    <item android:title="My Subjects"
         android:id="@+id/add_sub"
-        android:icon="@drawable/ic_add_black_24dp"/>
+        android:icon="@drawable/sub"/>
+    <item android:title=""
+        android:id="@+id/sub1"/>
+    <item android:title=""
+        android:id="@+id/sub2"/>
+    <item android:title=""
+        android:id="@+id/sub3"/>
+    <item android:title=""
+        android:id="@+id/sub4"/>
+    <item android:title=""
+        android:id="@+id/sub5"/>
+    <item android:title=""
+        android:id="@+id/sub6"/>
+    <item android:title=""
+        android:id="@+id/sub7"/>
+    <item android:title=""
+        android:id="@+id/sub8"/>
 
 </menu>

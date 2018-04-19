@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "115020019254-ov2ivnd1hfmcfui5rs7n1poptt5ci2m0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.teamseven.myvirtualplanner",
+            "certificate_hash": "599079bce558bcf243189c4a30ec3078b8e66794"
+          }
+        },
+        {
           "client_id": "115020019254-0pdf7d1iql1048eufeqcuubmjkl1pi1k.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115020019254-0pdf7d1iql1048eufeqcuubmjkl1pi1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     tools:context="io.github.teamseven.myvirtualplanner.MainActivity">
-
     <include layout="@layout/top_toolbar" />
 
     <TextView
@@ -21,11 +20,13 @@
         android:elevation="20sp"
         android:padding="10sp"
         android:text="@string/icon_notice"
-        android:textColor="#FD971F"
+        android:textColor="#63ff2c"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/hguide_bottom_notice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/hguide_top_notice" />
+        app:layout_constraintTop_toTopOf="@+id/hguide_top_notice"
+        />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -46,113 +47,114 @@
             android:layout_height="wrap_content"
 
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/mainscreen_tv10"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@drawable/mainscreen_shadow1"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="It always seems impossible until its done."
-                android:textColor="#F92672" />
+                android:text=""
+                android:textColor="#60F92672" />
 
             <TextView
                 android:id="@+id/mainscreen_tv9"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@drawable/mainscreen_shadow1"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="There is no substitute for hard work"
-                android:textColor="#F92672" />
+                android:text=""
+                android:textColor="#60F92672" />
 
             <TextView
                 android:id="@+id/mainscreen_tv8"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@drawable/mainscreen_shadow1"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="No matter how you feel, get up, dress up, show up, and never give up"
-                android:textColor="#F92672" />
+                android:text=""
+                android:textColor="#60F92672" />
 
             <TextView
                 android:id="@+id/mainscreen_tv7"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@drawable/mainscreen_shadow1"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="A goal without a plan is just a wish."
-                android:textColor="#F92672" />
+                android:text=""
+                android:textColor="#60F92672" />
             <TextView
                 android:id="@+id/mainscreen_tv6"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@drawable/mainscreen_shadow1"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="You are worth more than just your grades"
-                android:textColor="#F92672" />
+                android:text=""
+                android:textColor="#60F92672" />
 
             <TextView
                 android:id="@+id/mainscreen_tv5"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@drawable/mainscreen_shadow1"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="The beautiful thing about learning is no one can take it away from you"
-                android:textColor="#F92672" />
+                android:text=""
+                android:textColor="#60F92672" />
 
             <TextView
                 android:id="@+id/mainscreen_tv4"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@drawable/mainscreen_shadow1"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="Kid, You will move mountains"
-                android:textColor="#F92672" />
+                android:text=""
+                android:textColor="#60F92672" />
 
             <TextView
                 android:id="@+id/mainscreen_tv3"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@drawable/mainscreen_shadow1"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="Unless someone like you cares a whole awful lot, nothing's going to get better"
-                android:textColor="#F92672" />
+                android:text=""
+                android:textColor="#60F92672" />
             <TextView
                 android:id="@+id/mainscreen_tv2"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@drawable/mainscreen_shadow1"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="Why fit in ? When you were born to stand out"
-                android:textColor="#F92672" />
+                android:text=""
+                android:textColor="#60F92672" />
 
             <TextView
                 android:id="@+id/mainscreen_tv1"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:background="@drawable/mainscreen_shadow1"
+                android:background="#00000000"
                 android:elevation="20sp"
                 android:padding="10sp"
-                android:text="If you never did, your should. These things are fun. Fun is good"
-                android:textColor="#F92672" />
+                android:text=""
+                android:textColor="#60F92672" />
 
         </LinearLayout>
     </ScrollView>
@@ -176,7 +178,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/add_48"
-        app:cb_color="@color/colorPrimaryDark"
+        app:cb_color="#222b3c"
         app:cb_pressedRingWidth="10dp"
         app:layout_constraintBottom_toTopOf="@+id/btnBottom"
         app:layout_constraintEnd_toStartOf="@+id/btnRight"
