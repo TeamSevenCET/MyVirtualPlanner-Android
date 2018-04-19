@@ -5,15 +5,9 @@
     <item android:title="Attendance"
         android:icon="@drawable/ic_timer"
         android:id="@+id/attendance"/>
-    <item android:title="@string/exam"
-        android:icon="@drawable/exam"
-        android:id="@+id/exam"/>
-    <item android:title="@string/assignments"
-        android:icon="@drawable/ic_assignment_black_24dp"
-        android:id="@+id/ass"/>
     <item android:title="My Subjects"
         android:id="@+id/add_sub"
-        android:icon="@drawable/sub"/>
+        android:icon="@drawable/ic_add_black_24dp"/>
     <item android:title=""
         android:id="@+id/sub1"/>
     <item android:title=""

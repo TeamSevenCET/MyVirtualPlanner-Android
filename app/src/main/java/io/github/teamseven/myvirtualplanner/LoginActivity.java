@@ -209,7 +209,6 @@ public class LoginActivity extends AppCompatActivity {
 //                            Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             showErrorDialog("Google sign in failed!");
 //                            updateUI(null);
-                            startActivity(new Intent(LoginActivity.this, exams.class));
                         }
 
                         // ...
@@ -221,5 +220,13 @@ public class LoginActivity extends AppCompatActivity {
         spinner.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        Intent sliders = new Intent(this, initial_walkThrough.class);
+        sliders.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(sliders);
+    }
 }
 

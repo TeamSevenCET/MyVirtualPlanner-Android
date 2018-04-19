@@ -148,4 +148,13 @@ public class SignUpActivity extends AppCompatActivity {
 
         spinner.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        Intent logIn = new Intent(SignUpActivity.this, LoginActivity.class);
+        logIn.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(logIn);
+    }
 }
