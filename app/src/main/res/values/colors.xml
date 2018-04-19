@@ -21,5 +21,6 @@
 
     <color name="dark_green">#008000</color>
     <color name="tv_col">#50000000</color>
+    <color name="grey">#ccc</color>
 
 </resources>
