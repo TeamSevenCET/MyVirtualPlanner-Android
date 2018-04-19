@@ -49,6 +49,7 @@ import android.widget.LinearLayout.LayoutParams;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Always remember to follow a naming scheme. The global variables should have a prefix, most commonly used one is m
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference pDataBase = firebaseDatabase.getReference();
     private DatabaseReference mDataBase = firebaseDatabase.getReference(); //Firebase Reference
     private icon_Manager mIconManager; // Icon manager object, for adding glyphs
     private Toolbar mToolbar; // Toolbar object for the top toolbar
@@ -102,6 +104,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        pDataBase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.hasChild("poll")){
+                    DatabaseReference db=firebaseDatabase.getReference();
+                    db.setValue("poll");
+                    db=firebaseDatabase.getReference().child("poll");
+                    db.setValue("    ");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -168,9 +186,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     mDataBase.push().setValue("sIndex");
                     sIndex_db=firebaseDatabase.getReference().child(user_token_inner).child("sIndex");
                     sIndex_db.setValue("0");
-                    firebaseDatabase.getReference().push().setValue("poll");
-                    poll_db=firebaseDatabase.getReference().child("poll");
-                    poll_db.setValue("    ");
                     mDataBase.push().setValue("voted");
                     voted__db=firebaseDatabase.getReference().child(user_token_inner).child("voted");
                     voted__db.setValue("No");
@@ -183,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+
 
         mDataBase=firebaseDatabase.getReference().child(user_token_inner);
         mIndex_db=firebaseDatabase.getReference().child(user_token_inner).child("mIndex");
@@ -302,7 +318,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
-        mToolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         mAddBtn = (CircleButton) findViewById(R.id.addBtn);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -3044,9 +3059,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         String poll_option2=poll_o2.getText().toString();
                                         final String poll_entry=poll_question+"_"+poll_option1+"0_"+poll_option2+"0";
                                         poll_db=firebaseDatabase.getReference().child("poll");
-                                        poll_db.setValue(poll_entry);
-                                        voted__db=firebaseDatabase.getReference().child(user_token).child("Voted");
-                                        voted__db.setValue("Yes");
+                                        poll_db.setValue(poll_entry);////////////////////////////////////////
                                         Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(i5);
                                     }
@@ -3177,10 +3190,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                         public void onClick(View view) {
                                                             poll_db=firebaseDatabase.getReference().child("poll");
                                                             poll_db.setValue("    ");
-                                                            voted__db=firebaseDatabase.getReference().child(user_token).child("voted");
-                                                            voted__db.setValue("No");
-                                                            Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
-                                                            startActivity(i5);
+                                                            pDataBase.addChildEventListener(new ChildEventListener() {
+                                                                @Override
+                                                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                                                   final String x_key=dataSnapshot.getKey().toString();
+                                                                    DatabaseReference poll_delete_db;
+                                                                    poll_delete_db=firebaseDatabase.getReference().child(x_key);
+                                                                    poll_delete_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                        @Override
+                                                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                            if(dataSnapshot.hasChild("voted")){
+                                                                               DatabaseReference db= firebaseDatabase.getReference().child(x_key).child("voted");
+                                                                               Log.d("MyTest8",db.toString());
+                                                                               db.setValue("No");
+                                                                            }
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onCancelled(DatabaseError databaseError) {
+
+                                                                        }
+                                                                    });
+                                                                    Log.d("MyTest8",x_key);
+                                                                }
+
+                                                                @Override
+                                                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                                                }
+
+                                                                @Override
+                                                                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                                                }
+
+                                                                @Override
+                                                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                                }
+                                                            });
+                                                           Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
+                                                           startActivity(i5);
                                                         }
                                                     });
                                                 }
