@@ -82,12 +82,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference sIndex_db = firebaseDatabase.getReference().child("sIndex"); //for subs
     private DatabaseReference sub1_db;
     private DatabaseReference sub2_db;
-    private DatabaseReference sub3_db;
+    private DatabaseReference sub3_db;  //sub delete pendig for later
     private DatabaseReference sub4_db;
     private DatabaseReference sub5_db;
     private DatabaseReference sub6_db;
     private DatabaseReference sub7_db;
     private DatabaseReference sub8_db;
+    private DatabaseReference poll_db; //poll delete pending for later
     private Menu menu;
     private String date=null,time=null,rem_text=null,notice_string=null; //date of rem, time of rem , notice in notice board
     private String user_token="";
@@ -166,6 +167,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     mDataBase.push().setValue("sIndex");
                     sIndex_db=firebaseDatabase.getReference().child(user_token_inner).child("sIndex");
                     sIndex_db.setValue("0");
+                    firebaseDatabase.getReference().push().setValue("poll");
+                    poll_db=firebaseDatabase.getReference().child("poll");
+                    poll_db.setValue("    ");
 
                 }
             }
@@ -3013,6 +3017,132 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onClick(View view) {
                         Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(i5);
+
+                    }
+                });
+                break;
+            case R.id.poll:
+                poll_db=firebaseDatabase.getReference().child("poll");
+                poll_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            String x=dataSnapshot.getValue().toString();
+                            if(x.equals("    ")){
+                                AlertDialog.Builder mBuilder_poll=new AlertDialog.Builder(MainActivity.this);
+                                View lview_poll = getLayoutInflater().inflate(R.layout.polling_input,null);
+                                final EditText poll_q=(EditText) lview_poll.findViewById(R.id.poll_q);
+                                final EditText poll_o1=(EditText) lview_poll.findViewById(R.id.poll_o1);
+                                final EditText poll_o2=(EditText)lview_poll.findViewById(R.id.poll_o2);
+                                final Button poll_submit=(Button)lview_poll.findViewById(R.id.poll_submit);
+                                mBuilder_poll.setView(lview_poll);
+                                AlertDialog rem_dialog_poll=mBuilder_poll.create();
+                                rem_dialog_poll.show();
+                                poll_submit.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        String poll_question=poll_q.getText().toString();
+                                        String poll_option1=poll_o1.getText().toString();
+                                        String poll_option2=poll_o2.getText().toString();
+                                        final String poll_entry=poll_question+"_"+poll_option1+"0_"+poll_option2+"0";
+                                        poll_db=firebaseDatabase.getReference().child("poll");
+                                        poll_db.setValue(poll_entry);
+                                        Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(i5);
+                                    }
+                                });
+
+
+                            }else{
+                                AlertDialog.Builder mBuilder_poll=new AlertDialog.Builder(MainActivity.this);
+                                View lview_poll = getLayoutInflater().inflate(R.layout.poll,null);
+                                final Button poll_choice1=(Button) lview_poll.findViewById(R.id.poll_choice1);
+                                final Button poll_choice2=(Button)lview_poll.findViewById(R.id.poll_choice2);
+                                final TextView poll_text=(TextView)lview_poll.findViewById(R.id.poll_text);
+                                poll_db=firebaseDatabase.getReference().child("poll");
+                                poll_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if(dataSnapshot.exists()){
+                                            String x=dataSnapshot.getValue().toString();
+                                            final String x_update=x;
+                                            String y[]=x.split("_");
+                                            poll_text.setText(y[0]);
+                                            Pattern p=Pattern.compile("[0-9]");
+                                            Matcher m=p.matcher(y[1]);
+                                            int index_num_1=0;
+                                            while(m.find()){
+                                                index_num_1=m.start();
+                                                break;
+                                            }
+                                            poll_choice1.setText(y[1].substring(0,index_num_1)+"     "+y[1].substring(index_num_1,y[1].length()));
+                                            p=Pattern.compile("[0-9]");
+                                            m=p.matcher(y[2]);
+                                            int index_num_2=0;
+                                            while(m.find()){
+                                                index_num_2=m.start();
+                                                break;
+                                            }
+                                            poll_choice2.setText(y[2].substring(0,index_num_2)+"     "+y[2].substring(index_num_2,y[2].length()));
+                                            poll_choice1.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    String y[]=x_update.split("_");
+                                                    Pattern p=Pattern.compile("[0-9]");
+                                                    Matcher m=p.matcher(y[1]);
+                                                    int index_num_1=0;
+                                                    while(m.find()){
+                                                        index_num_1=m.start();
+                                                        break;
+                                                    }
+                                                    int counter_1=Integer.parseInt(y[1].substring(index_num_1,y[1].length()))+1;
+                                                    y[1]=y[1].substring(0,index_num_1)+Integer.toString(counter_1);
+                                                    poll_choice1.setText(y[1].substring(0,index_num_1)+"     "+Integer.toString(counter_1));
+                                                    poll_choice1.setBackgroundColor(Color.parseColor("#09b1f4"));
+                                                    String x_entry=y[0]+"_"+y[1]+"_"+y[2];
+                                                    poll_db=firebaseDatabase.getReference().child("poll");
+                                                    poll_db.setValue(x_entry);
+                                                }
+                                            });
+                                            poll_choice2.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    String y[]=x_update.split("_");
+                                                    Pattern p=Pattern.compile("[0-9]");
+                                                    Matcher m=p.matcher(y[2]);
+                                                    int index_num_2=0;
+                                                    while(m.find()){
+                                                        index_num_2=m.start();
+                                                        break;
+                                                    }
+                                                    int counter_2=Integer.parseInt(y[2].substring(index_num_2,y[2].length()))+1;
+                                                    y[2]=y[2].substring(0,index_num_2)+Integer.toString(counter_2);
+                                                    poll_choice2.setText(y[2].substring(0,index_num_2)+"     "+Integer.toString(counter_2));
+                                                    poll_choice2.setBackgroundColor(Color.parseColor("#09b1f4"));
+                                                    String x_entry=y[0]+"_"+y[1]+"_"+y[2];
+                                                    poll_db=firebaseDatabase.getReference().child("poll");
+                                                    poll_db.setValue(x_entry);
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                                mBuilder_poll.setView(lview_poll);
+                                AlertDialog rem_dialog_poll=mBuilder_poll.create();
+                                rem_dialog_poll.show();
+
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
                     }
                 });
