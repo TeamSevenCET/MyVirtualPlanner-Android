@@ -88,7 +88,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference sub6_db;
     private DatabaseReference sub7_db;
     private DatabaseReference sub8_db;
-    private DatabaseReference poll_db; //poll delete pending for later
+    private DatabaseReference poll_db;  //for poll
+    private DatabaseReference voted__db;  //to disable multiple votes from same user
     private Menu menu;
     private String date=null,time=null,rem_text=null,notice_string=null; //date of rem, time of rem , notice in notice board
     private String user_token="";
@@ -170,6 +171,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     firebaseDatabase.getReference().push().setValue("poll");
                     poll_db=firebaseDatabase.getReference().child("poll");
                     poll_db.setValue("    ");
+                    mDataBase.push().setValue("voted");
+                    voted__db=firebaseDatabase.getReference().child(user_token_inner).child("voted");
+                    voted__db.setValue("No");
 
                 }
             }
@@ -298,7 +302,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
-        mToolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         mAddBtn = (CircleButton) findViewById(R.id.addBtn);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -3048,6 +3051,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         final String poll_entry=poll_question+"_"+poll_option1+"0_"+poll_option2+"0";
                                         poll_db=firebaseDatabase.getReference().child("poll");
                                         poll_db.setValue(poll_entry);
+                                        voted__db=firebaseDatabase.getReference().child(user_token).child("Voted");
+                                        voted__db.setValue("Yes");
                                         Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(i5);
                                     }
@@ -3060,6 +3065,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 final Button poll_choice1=(Button) lview_poll.findViewById(R.id.poll_choice1);
                                 final Button poll_choice2=(Button)lview_poll.findViewById(R.id.poll_choice2);
                                 final TextView poll_text=(TextView)lview_poll.findViewById(R.id.poll_text);
+                                final Button poll_back=(Button)lview_poll.findViewById(R.id.poll_back);
+                                final TextView poll_delete=(TextView)lview_poll.findViewById(R.id.poll_delete);
                                 poll_db=firebaseDatabase.getReference().child("poll");
                                 poll_db.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -3085,6 +3092,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                 break;
                                             }
                                             poll_choice2.setText(y[2].substring(0,index_num_2)+"     "+y[2].substring(index_num_2,y[2].length()));
+                                            voted__db=firebaseDatabase.getReference().child(user_token).child("voted");
+                                            voted__db.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    if(dataSnapshot.exists()){
+                                                        String x=dataSnapshot.getValue().toString();
+                                                        if(x.equals("Yes")){
+                                                            Toast.makeText(MainActivity.this,"You already voted for this",Toast.LENGTH_LONG).show();
+                                                            poll_choice1.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View view) {
+                                                                    Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
+                                                                    startActivity(i5);
+                                                                }
+                                                            });
+                                                            poll_choice2.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View view) {
+                                                                    Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
+                                                                    startActivity(i5);
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
                                             poll_choice1.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
@@ -3103,6 +3141,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                     String x_entry=y[0]+"_"+y[1]+"_"+y[2];
                                                     poll_db=firebaseDatabase.getReference().child("poll");
                                                     poll_db.setValue(x_entry);
+                                                    voted__db=firebaseDatabase.getReference().child(user_token).child("voted");
+                                                    voted__db.setValue("Yes");
                                                 }
                                             });
                                             poll_choice2.setOnClickListener(new View.OnClickListener() {
@@ -3123,6 +3163,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                     String x_entry=y[0]+"_"+y[1]+"_"+y[2];
                                                     poll_db=firebaseDatabase.getReference().child("poll");
                                                     poll_db.setValue(x_entry);
+                                                    voted__db=firebaseDatabase.getReference().child(user_token).child("voted");
+                                                    voted__db.setValue("Yes");
+                                                }
+                                            });
+                                            poll_back.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
+                                                    startActivity(i5);
+                                                }
+                                            });
+                                            poll_delete.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    Toast.makeText(MainActivity.this,"Press again to confirm",Toast.LENGTH_SHORT).show();
+                                                    poll_delete.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View view) {
+                                                            poll_db=firebaseDatabase.getReference().child("poll");
+                                                            poll_db.setValue("    ");
+                                                            voted__db=firebaseDatabase.getReference().child(user_token).child("voted");
+                                                            voted__db.setValue("No");
+                                                            Intent i5 = new Intent(getApplicationContext(), MainActivity.class);
+                                                            startActivity(i5);
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }
@@ -3136,6 +3202,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 mBuilder_poll.setView(lview_poll);
                                 AlertDialog rem_dialog_poll=mBuilder_poll.create();
                                 rem_dialog_poll.show();
+
 
 
                             }
