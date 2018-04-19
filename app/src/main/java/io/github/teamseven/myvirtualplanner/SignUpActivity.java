@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private EditText mConfirmPasswordView;
     private Button mSignUp;
+    private ProgressBar spinner;
 
     // Firebase instance variables
     private FirebaseAuth mAuth;
@@ -41,6 +43,8 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        spinner = (ProgressBar) findViewById(R.id.progressBar2);
+        spinner.setVisibility(View.GONE);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.register_email);
         mPasswordView = (EditText) findViewById(R.id.register_password);
         mConfirmPasswordView = (EditText) findViewById(R.id.register_confirm_password);
@@ -103,6 +107,7 @@ public class SignUpActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
+            updateUI();
             createFirebaseUser();
         }
     }
@@ -138,5 +143,9 @@ public class SignUpActivity extends AppCompatActivity {
     // TODO: Create an alert dialog to show in case registration failed
     private void showErrorDialog(String message) {
         new AlertDialog.Builder(this ).setTitle("Oops!").setMessage(message).setPositiveButton(android.R.string.ok, null).setIcon(android.R.drawable.ic_dialog_alert).show();
+    }
+    private void updateUI() {
+
+        spinner.setVisibility(View.VISIBLE);
     }
 }

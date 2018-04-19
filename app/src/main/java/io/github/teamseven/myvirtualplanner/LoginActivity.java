@@ -15,6 +15,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,17 +45,25 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private Button mSignUp;
+    private ProgressBar spinner;
+    private RelativeLayout mLayout;
 
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
+
+        mLayout = (RelativeLayout) findViewById(R.id.loginActivity);
+
+        spinner = (ProgressBar) findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -81,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         mBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateUI();
                 attemptLogin();
             }
         });
@@ -101,10 +112,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        mSignUp = (Button) findViewById(R.id.signUpBtn);
+        Button mSignUp = (Button) findViewById(R.id.signUpBtn);
         mSignUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateUI();
                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
@@ -152,6 +164,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signIn() {
+
+        updateUI();
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -203,7 +217,9 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-
+    private void updateUI() {
+        spinner.setVisibility(View.VISIBLE);
+    }
 
 }
 

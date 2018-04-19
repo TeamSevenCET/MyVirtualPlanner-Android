@@ -5,18 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/background"
+    android:id="@+id/loginActivity"
     tools:context=".LoginActivity">
 
-
     <ImageView
+        android:layout_width="120sp"
+        android:layout_height="120sp"
         android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="47dp"
-        app:srcCompat="@drawable/icon" />
+        android:layout_marginTop="50sp"
+        android:src="@drawable/icon"
+        />
 
     <AutoCompleteTextView
         android:id="@+id/email"
@@ -67,7 +68,6 @@
 
         />
 
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,6 +77,15 @@
         android:layout_marginTop="10dp"
         android:textColor="#D7DBDD"
         android:id="@+id/signUpBtn"
-        android:background="@color/colorPrimaryDark"
+        android:background="#00000000"
         />
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        android:layout_marginTop="300sp"
+        style="?android:attr/progressBarStyleLarge"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
