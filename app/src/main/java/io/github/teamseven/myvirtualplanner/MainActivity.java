@@ -298,6 +298,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
+        mToolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         mAddBtn = (CircleButton) findViewById(R.id.addBtn);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
