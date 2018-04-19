@@ -16,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50sp"
-        android:src="@drawable/icon"
+        android:src="@drawable/icn_img"
         />
 
     <AutoCompleteTextView

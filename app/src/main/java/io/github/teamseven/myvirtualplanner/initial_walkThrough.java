@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.text.Html;
 import android.transition.Slide;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class initial_walkThrough extends AppCompatActivity {
 
@@ -30,7 +34,6 @@ public class initial_walkThrough extends AppCompatActivity {
         mLinearLayout = (LinearLayout) findViewById(R.id.dotLayout);
         mSliderAdapter = new SliderAdapter(this);
         mViewPager.setAdapter(mSliderAdapter);
-
         mNextBtn = (Button) findViewById(R.id.nextBtn);
         mPrevBtn = (Button) findViewById(R.id.prevBtn);
 

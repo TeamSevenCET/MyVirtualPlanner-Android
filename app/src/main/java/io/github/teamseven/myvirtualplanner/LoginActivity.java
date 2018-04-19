@@ -11,10 +11,13 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private ProgressBar spinner;
-    private RelativeLayout mLayout;
 
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -57,10 +59,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Animation frombottom = AnimationUtils.loadAnimation(this, R.anim.from_bottom);
+        Animation fromleft = AnimationUtils.loadAnimation(this, R.anim.from_left);
+        Animation fromright = AnimationUtils.loadAnimation(this, R.anim.from_right);
+        Animation fromtop = AnimationUtils.loadAnimation(this, R.anim.from_top);
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
 
-        mLayout = (RelativeLayout) findViewById(R.id.loginActivity);
+        ImageView imgView = (ImageView) findViewById(R.id.imageView);
+        imgView.setAnimation(fromtop);
+        RelativeLayout mLayout = (RelativeLayout) findViewById(R.id.loginActivity);
 
         spinner = (ProgressBar) findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);
@@ -88,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         Button mBtn = (Button) findViewById(R.id.email_sign_in_button);
+        mBtn.setAnimation(fromleft);
         mBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         SignInButton mGoogleBtn = (SignInButton) findViewById(R.id.googleBtn);
+        mGoogleBtn.setAnimation(fromright);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -113,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         Button mSignUp = (Button) findViewById(R.id.signUpBtn);
+        mSignUp.setAnimation(frombottom);
         mSignUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
