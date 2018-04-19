@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() == null) {
-                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    Intent loginIntent = new Intent(MainActivity.this, initial_walkThrough.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(loginIntent);
                 }
@@ -301,7 +301,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.navigation_drawer);
         mToolbar = (Toolbar) findViewById(R.id.topToolbar);
         setSupportActionBar(mToolbar);
-        mToolbar.setTitle(R.string.app_name);///////////////////////////////////////////////////////
+
+        mToolbar.setTitle(R.string.app_name
         mAddBtn = (CircleButton) findViewById(R.id.addBtn);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);

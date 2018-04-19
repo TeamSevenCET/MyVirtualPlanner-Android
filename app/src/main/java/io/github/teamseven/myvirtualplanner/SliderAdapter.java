@@ -36,9 +36,9 @@ public class SliderAdapter extends PagerAdapter {
     };
 
     public String[] descriptions = {
-      "Fuck you",
-            "Fuck you",
-            "Fuck you"
+      "Using this app you can concentrate more on studies. With an emphasis on students our app is built on the principle of time is money.",
+            "Our app uses an intelligent algorithm to determine what is important at the moment and suggests you on what to do next. With this feature you will always be on top of whatever this college life throws at you.",
+            "With this app you can not only give more time to your studies but you can actually enjoy your college life. A moment that is saved from studying can now be used to enjoy, go out with friends, or play video games because you lack any. Choice is yours."
     };
 
     @Override

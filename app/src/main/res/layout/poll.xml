@@ -14,7 +14,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
-        android:text="Poll For The Day"
+        android:text="Poll for Today"
         android:gravity="center"
         android:textSize="20sp"
         android:background="#50000000"
