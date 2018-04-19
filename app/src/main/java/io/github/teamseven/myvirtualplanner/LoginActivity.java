@@ -11,11 +11,15 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,10 +59,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        startActivity(new Intent(LoginActivity.this, initial_walkThrough.class));
+        Animation frombottom = AnimationUtils.loadAnimation(this, R.anim.from_bottom);
+        Animation fromleft = AnimationUtils.loadAnimation(this, R.anim.from_left);
+        Animation fromright = AnimationUtils.loadAnimation(this, R.anim.from_right);
+        Animation fromtop = AnimationUtils.loadAnimation(this, R.anim.from_top);
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
+
+        ImageView imgView = (ImageView) findViewById(R.id.imageView);
+        imgView.setAnimation(fromtop);
+        RelativeLayout mLayout = (RelativeLayout) findViewById(R.id.loginActivity);
 
         spinner = (ProgressBar) findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);
@@ -86,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         Button mBtn = (Button) findViewById(R.id.email_sign_in_button);
+        mBtn.setAnimation(fromleft);
         mBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         SignInButton mGoogleBtn = (SignInButton) findViewById(R.id.googleBtn);
+        mGoogleBtn.setAnimation(fromright);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -111,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         Button mSignUp = (Button) findViewById(R.id.signUpBtn);
+        mSignUp.setAnimation(frombottom);
         mSignUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,7 +221,6 @@ public class LoginActivity extends AppCompatActivity {
 //                            Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             showErrorDialog("Google sign in failed!");
 //                            updateUI(null);
-                            startActivity(new Intent(LoginActivity.this, exams.class));
                         }
 
                         // ...
@@ -219,5 +232,13 @@ public class LoginActivity extends AppCompatActivity {
         spinner.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        Intent sliders = new Intent(this, initial_walkThrough.class);
+        sliders.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(sliders);
+    }
 }
 

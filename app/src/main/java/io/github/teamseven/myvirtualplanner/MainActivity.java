@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() == null) {
-                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    Intent loginIntent = new Intent(MainActivity.this, initial_walkThrough.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(loginIntent);
                 }
@@ -989,13 +989,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     }
                 });
-                break;
-            case R.id.exam:
-                startActivity(new Intent(this, exams.class));
-                break;
-            case R.id.ass:
-//                TODO : Logic for assignment lets remove this altogether because it seems like a lot more work
-                Toast.makeText(this, "Pressed", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.sub1:
                 AlertDialog.Builder mBuilder_sub=new AlertDialog.Builder(MainActivity.this);
