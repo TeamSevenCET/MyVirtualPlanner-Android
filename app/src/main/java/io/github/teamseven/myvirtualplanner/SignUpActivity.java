@@ -10,10 +10,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -33,8 +36,8 @@ public class SignUpActivity extends AppCompatActivity {
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
     private EditText mConfirmPasswordView;
-    private Button mSignUp;
     private ProgressBar spinner;
+    Animation frombottom;
 
     // Firebase instance variables
     private FirebaseAuth mAuth;
@@ -43,12 +46,17 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        Animation fromtop = AnimationUtils.loadAnimation(this, R.anim.from_top);
+        ImageView imgView = (ImageView) findViewById(R.id.imageView);
+        imgView.setAnimation(fromtop);
+        frombottom = AnimationUtils.loadAnimation(this, R.anim.from_bottom);
         spinner = (ProgressBar) findViewById(R.id.progressBar2);
         spinner.setVisibility(View.GONE);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.register_email);
         mPasswordView = (EditText) findViewById(R.id.register_password);
         mConfirmPasswordView = (EditText) findViewById(R.id.register_confirm_password);
-        mSignUp = (Button) findViewById(R.id.register_sign_up_button);
+        Button mSignUp = (Button) findViewById(R.id.register_sign_up_button);
+        mSignUp.setAnimation(frombottom);
         mConfirmPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -147,5 +155,14 @@ public class SignUpActivity extends AppCompatActivity {
     private void updateUI() {
 
         spinner.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        Intent logIn = new Intent(SignUpActivity.this, LoginActivity.class);
+        logIn.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(logIn);
     }
 }
