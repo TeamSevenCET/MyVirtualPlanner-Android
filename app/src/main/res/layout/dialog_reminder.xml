@@ -28,6 +28,17 @@
         android:inputType="textMultiLine"
         android:background="#292d2c"/>
 
+    <Button
+        android:id="@+id/voice2text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Voice to text"
+        android:layout_marginTop="5sp"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:onClick="getSpeechInput"
+        android:background="#8009b1f4"/>
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -57,12 +57,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import java.util.Locale;
 
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.ArrayList;
+import android.speech.RecognizerIntent;
 
 import at.markushi.ui.CircleButton;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Menu menu;
     private String date=null,time=null,rem_text=null,notice_string=null; //date of rem, time of rem , notice in notice board
     private String user_token="";
+    private static String voice_rem;
 
     //Database always keeps mIndex value to know how many entires are there, which is used later by custom algortihms
     //mIndex is intialised at -1 when the user has no reminders. So when authorising for each user node maintain mIndex value
@@ -123,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         /**
          * Start of "You shall log in to pass"
          */
@@ -3294,6 +3297,66 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+    }
+    public void getSpeechInput(View view) {
+
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, 10);
+        } else {
+            Toast.makeText(this, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 10:
+                if (resultCode == RESULT_OK && data != null) {
+
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    Log.d("MyTest9",result.get(0));
+                    voice_rem=result.get(0);
+                    final String voice_rem_inner=voice_rem;
+                    Log.d("MyTest9",voice_rem_inner);
+                    AlertDialog.Builder mBuilder=new AlertDialog.Builder(MainActivity.this);
+                    View lview = getLayoutInflater().inflate(R.layout.dialog_reminder,null);
+                    final EditText lReminder=(EditText) lview.findViewById(R.id.textReminder);
+                    final DatePicker rem_date=(DatePicker) lview.findViewById(R.id.datePicker4);
+                    final TimePicker rem_time=(TimePicker)lview.findViewById(R.id.timePicker);
+                    lReminder.setText(voice_rem_inner);
+                    mBuilder.setView(lview);
+                    AlertDialog rem_dialog=mBuilder.create();
+                    rem_dialog.show();
+                    Button submit_date=(Button) lview.findViewById(R.id.submit_date);
+                    submit_date.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int day=0;
+                            int month=0;
+                            int year=0;
+                            int hour=0;
+                            int min=0;
+                            onDateSet(rem_date,day,month,year);
+                            onTimeSet(rem_time,hour,min);
+                            Log.d("MyTest10",voice_rem_inner);
+                            rem_text=lReminder.getText().toString().trim();
+                            //algorithm for priority
+                            prioritise(date+"_"+rem_text+"_"+time);
+                            Intent i5=new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(i5);
+                        }
+
+                    });
+
+                }
+                break;
+        }
     }
 
 }
