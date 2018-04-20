@@ -929,8 +929,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, profile.class));
                 break;
             case R.id.dropDown_aboutUs:
-                Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
-                // TODO : Priya add your about us page here
+                startActivity(new Intent(MainActivity.this, AboutUs.class));
                 break;
 
         }
