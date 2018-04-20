@@ -31,6 +31,7 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".profile" />
         <activity android:name=".initial_walkThrough" />
+        <activity android:name=".AboutUs"></activity>
     </application>
 
 </manifest>
