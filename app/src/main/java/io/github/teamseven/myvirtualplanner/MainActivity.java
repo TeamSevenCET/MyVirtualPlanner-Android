@@ -850,7 +850,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //proximity algorithm
     public boolean proximity(String s1,String s2){ //first param: lower urgent date , second param: urgent date //false if conflict
         if(date_proximity(s1.substring(0,10),s2.substring(0,10))) {
-            Pattern p = Pattern.compile("[Ee][Xx][Aa][Mm]");
+            Pattern p = Pattern.compile("([Ee][Xx][Aa][Mm])|([Tt][Ee][Ss][Tt])");
             Matcher m = p.matcher(s1);
             int check_exam_s1 = 0;
             while (m.find()){
