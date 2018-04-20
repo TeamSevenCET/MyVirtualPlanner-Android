@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
@@ -300,6 +301,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             y--;
                             z--;
                         }
+                    }else{
+                        AlertDialog.Builder mBuilder_newUser=new AlertDialog.Builder(MainActivity.this);
+                        View lview_newUser = getLayoutInflater().inflate(R.layout.new_user,null);
+                        final Button newUser_back=(Button) lview_newUser.findViewById(R.id.newUser_back);
+                        mBuilder_newUser.setView(lview_newUser);
+                        final AlertDialog rem_dialog_newUser=mBuilder_newUser.create();
+                        rem_dialog_newUser.show();
+                        newUser_back.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                rem_dialog_newUser.dismiss();
+                            }
+                        });
                     }
                 }
 
@@ -521,9 +535,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Compatibility mode and toolbar-actionbar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mToolbar.setElevation(10.f);
+            mToolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         }
-
-
 
         //notice_board
         mIconManager=new icon_Manager();
